@@ -1,0 +1,740 @@
+.ListView {
+	-webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+	-khtml-border-radius: 8px;
+    -ms-border-radius: 8px;
+	-o-border-radius: 8px;
+    border-radius: 8px;
+	
+	font-family: sans-serif;
+	overflow: hidden;
+	min-width: 300px;
+}
+
+.ListView .ListItem{
+	overflow: hidden;
+	border-top: 1px solid #0a375d;
+	line-height:2.5;
+	color:#0a375d;
+	font-weight: 100;
+}
+
+.ListView .ListItem a.botao{
+	display: block;
+	padding: 8px 20px;
+	background-color: aliceblue;
+	color: #0a375d;
+	position: static;
+	font-family: Times New Roman;
+	line-height: 1.9;
+	overflow: hidden;
+	text-align:center;
+}
+
+.ListView .ListItem a.botao:before{
+	content: '';
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	background-color: aliceblue;
+	left: 20px;
+	bottom: -7px;
+	transform: rotate(45deg);
+}
+
+.ListView .ListItem a.botao i{
+	margin-right: 10px;
+}
+.ListView .ListItem a.botao div.assunto{
+	clear:both;
+	text-align:left;
+	margin: 5px -10px 0px -10px;
+	overflow-x: hidden;
+	white-space: normal;
+	color: #0f4c80;
+	background-color: inherit;
+}
+
+.ListView .ListItem .panel{
+	background-color: #ffffff;
+	overflow: hidden;
+	transition: max-height 0.3s;
+	max-height: 0;
+}
+.ListView .ListItem .panel a{
+	display: block;
+	padding: 10px 18px;
+	color: #0a375d;
+	font-size: 14px;
+	margin: 4px 0;
+	position: relative;
+	line-height: 1.5;
+}
+.ListView .ListItem .panel a:before{
+	content: "";
+	position: absolute;
+	width: 16px;
+	height: 100%;
+	background-color: aliceblue;
+	left: 0;
+	top: 0;
+	transition: 0.3s;
+	opacity: 0;
+}
+.ListView .ListItem .panel a div{	color:inherit;    font-family: initial;    text-align: left;}
+.ListView .ListItem .panel a div span{	color:inherit;    font-family: initial; color: currentColor;}
+.ListView .ListItem .panel a div span.paineLabel{	color:grey;        font-weight: bold;}
+
+.ListView .ListItem .panel a:hover:before,.ListView .ListItem .panel a:hover:after{
+	opacity: 1;
+}
+.ListView .ListItem:target .panel{
+	max-height: 12em;
+}
+
+.ListView .ListItem a label.nMi{
+	color: #0f4c80;
+    line-height: 1.5;
+    padding: 2px 5px;
+    outline: 1px dashed #357ab5;
+	font-family: monospace;
+    margin-left: -10px;
+	margin-top: 5px;
+    margin-right: 5px;
+	cursor: pointer;
+	float:left;
+}
+
+
+.switchContainer{
+	display: inline-block;
+	font-family: -apple-system, BlinkMacSystemFont,"Segoe UI","Roboto", "Droid Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+	margin-left: 25px;
+}
+.switchContainer input[type="checkbox"], .switchContainer input[type="radio"] {
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+	overflow: visible;
+    overflow: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+}
+.switchContainer input[type="checkbox"]+label, .switchContainer input[type="radio"]+label {
+    position: relative;
+    margin-left: 1.25rem;
+    cursor: pointer;
+	padding: 0.25rem 0.5rem;
+}
+.switchContainer input[type="checkbox"]+label.switch:before, .switchContainer input[type="radio"]+label.switch:before {
+    bottom: .5rem;
+    width: 1.75rem;
+    height: .875rem;
+    border: 0;
+    border-radius: .5rem;
+    background: #c9c9c9;
+    margin-left: -2.375rem;	
+}
+.switchContainer input[type="checkbox"]+label:before, .switchContainer input[type="radio"]+label:before {
+    display: inline-block;
+    position: absolute;
+    bottom: .375rem;
+    left: 0;
+    width: 1rem;
+    height: 1rem;
+    content: '';
+    border: .0625rem solid #bdbdbd;
+    border-radius: .125rem;
+    background: #fafafa;
+    color: #212121;
+    margin-left: -1.25rem;
+}
+.switchContainer input[type="checkbox"]+label.switch:after, .switchContainer input[type="radio"]+label.switch:after {
+    display: inline-block;
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: #e0e0e0;
+    border-radius: 100%;
+    bottom: .3125rem;
+    margin-left: -3rem;
+    transition: left 0.3s;
+}
+.switchContainer [type="checkbox"]:checked+label.switch:before, .switchContainer [type="radio"]:checked+label.switch:before {
+    background: #dcdcdc;
+}
+.switchContainer [type="checkbox"]+label.switch:before, .switchContainer [type="radio"]+label.switch:before {
+    bottom: .5rem;
+    width: 1.75rem;
+    height: .875rem;
+    border: 0;
+    border-radius: .5rem;
+    background: #c9c9c9;
+    margin-left: -2.375rem;
+}
+.switchContainer [type="checkbox"]+label:before, .switchContainer [type="radio"]+label:before {
+    display: inline-block;
+    position: absolute;
+    bottom: .375rem;
+    left: 0;
+    width: 1rem;
+    height: 1rem;
+    content: '';
+    border: .0625rem solid #bdbdbd;
+    border-radius: .125rem;
+    background: #fafafa;
+    color: #212121;
+    margin-left: -1.25rem;
+}
+.switchContainer [type="checkbox"]:checked+label.switch:after, .switchContainer [type="radio"]:checked+label.switch:after {
+    left: 1.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    bottom: .3125rem;
+    margin-left: -3rem;
+    background: #0277bd;
+}
+.switchContainer [type="checkbox"]+label.switch:after, .switchContainer [type="radio"]+label.switch:after {
+    display: inline-block;
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: #e0e0e0;
+    border-radius: 100%;
+    bottom: .3125rem;
+    margin-left: -3rem;
+    transition: left 0.3s;
+}
+.switchContainer [type="checkbox"]:checked+label:after, .switchContainer [type="radio"]:checked+label:after {
+    position: absolute;
+    background: #212121;
+    content: '';
+    margin-left: -1.25rem;
+    bottom: .625rem;
+    left: .25rem;
+    width: .625rem;
+    height: .625rem;
+}
+.switchContainer label{
+	text-align: left;
+    font-weight: 100;
+    color: #696969;
+    font-family: inherit;
+    font-size: medium;
+    font-weight: 500;
+    letter-spacing: 0px;
+}
+.switchContainer.grudaBox{
+	display: -webkit-box;
+    margin-top: -10px;
+}
+.switchContainer label.switch .miniLabel{
+	margin-left: -5px;
+    color: #686869;
+    font-family: -webkit-body;
+}
+
+
+.multiList{
+	max-height: 40px;
+	transition: max-height 0.3s;
+	padding: 0px 5px;
+    vertical-align: middle;
+}
+.multiList:hover{
+	max-height: none;
+}
+
+
+
+
+
+details.DropDownModal>:not(summary) > .title{
+	padding: 2px 1px 10px 5px;
+    line-height: 35px;
+    background: transparent;
+    border-bottom: 1px solid #e1e4e8;
+    position: sticky;
+    width: 300px;
+    overflow: hidden;
+    font-size: 13px;
+    color: #586069;
+    background-color: transparent;
+    background-clip: padding-box;
+    border-radius: 3px;
+}
+details.DropDownModal summary{	
+	color: #24292e;
+    background-color: #eff3f6;
+    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+	background-repeat: repeat-x;
+    background-position: -1px -1px;
+    background-size: 110% 110%;
+	cursor: pointer;
+	position: relative;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    white-space: nowrap;
+    vertical-align: middle;
+    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    border: 1px solid rgba(27,31,35,.2);
+    border-radius: .25em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	padding: 6px 12px;
+	padding: 5px 10px;
+}
+details.DropDownModal summary:hover{
+	background-color: #e6ebf1;
+    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
+    background-position: -.5em;
+    border-color: rgba(27,31,35,.35);
+}
+details.DropDownModal[open]>summary{
+    background-color: #e9ecef;
+    background-image: none;
+    border-color: rgba(27,31,35,.35);
+    box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,.15);
+}
+details.DropDownModal>:not(summary){
+	position: relative;
+    width: 300px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    font-size: 12px;
+    color: #586069;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(27,31,35,.15);
+    border-radius: 3px;
+    box-shadow: 0 3px 12px rgba(27,31,35,.15);
+	outline: 1px solid rgba(27,31,35,.2);
+	z-index: 99;
+	position: absolute;
+}
+details.DropDownModal:not([open])>:not(summary){
+    display: none!important;
+}
+details.DropDownModal summary:before{	display:none;	}
+details.DropDownModal[open] summary:before{
+	content: '';
+	position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: block;
+    cursor: default;
+    background: #ce1b1b00;
+}
+details.DropDownModal summary:after{
+	content: '';
+	display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: -2px;
+    border: 4px solid transparent;
+    border-top-color: currentcolor;
+	margin-left: 5px;
+}
+
+
+
+
+details.abreFechaView{
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+}
+
+details.abreFechaView summary{
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+
+details.abreFechaView[open]{
+    padding: .5em;
+}
+
+details.abreFechaView[open] summary{
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+
+.TabsView{
+	border: 1px solid #d9d6c4;
+	border-top: 0;
+	/*border-right: 0;*/
+	min-height: 50px;
+	position: relative;
+    padding: 0px;
+    zoom: 1;
+	
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;	
+}
+.TabsView UL.TabsNav{
+	margin: -1px;
+	margin: 0px;
+	border: 0;    
+	padding: 0px;
+	background-color: #eee;
+	font-weight: bold;
+	text-decoration: none;
+    font-size: 100%;
+    list-style: none;
+	line-height: 0.5;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+}
+
+.TabsView UL.TabsNav:before, .TabsView UL.TabsNav:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+.TabsView UL.TabsNav li{
+	border: 1px solid #cbc7bd;
+	list-style: none;
+    float: left;
+    position: relative;
+    top: 1px;
+    margin: 0 .2em 1px 0;
+    border-bottom: 0 !important;
+    padding: 0;
+    white-space: nowrap;
+	background-color: #eee;
+
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+}
+.TabsView input.tabview{
+	height: 0;
+	width: 0;
+	position: absolute;
+	opacity: 0;
+}
+
+.TabsView input.tabview:checked + .TabPanel{
+	display: block;
+}
+.TabsView input.tabview:checked{
+	border-bottom: 0;
+	background-color: white;
+}
+.TabsView UL.TabsNav li:has(.tabview:checked), .TabsView UL.TabsNav li:contains(.tabview:checked){
+	border-bottom: 0;
+	background-color: white;
+}
+!li .tabview:checked{
+	border-bottom: 0;
+	background-color: white;
+}
+.TabsView UL.TabsNav li:target {
+	border-bottom: 0;
+	background-color: white;
+}
+
+.TabsView .TabPanel{
+	display: none;
+    border-width: 0;
+    padding: 1em 1.4em;
+    background: none;
+	margin-top: 0;
+	border-top: 0;
+	border: 1px solid #d9d6c4;
+	background-color: white;
+	
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+.TabsView UL.TabsNav li a, .TabsView UL.TabsNav li label{
+	cursor: pointer;
+	float: left;
+    padding: .5em 1em;
+    text-decoration: none;
+}
+
+
+
+
+
+label.checkbox{
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+label.checkbox input{
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+label.checkbox .mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 23px;
+  width: 23px;
+  background-color: #eee;
+}
+label.checkbox:hover input ~ .mark {
+  background-color: #ccc;
+}
+label.checkbox input:checked ~ .mark {
+  background-color: #2196F3;
+}
+label.checkbox .mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+label.checkbox input:checked ~ .mark:after {
+  display: block;
+}
+label.checkbox .mark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.radius6{
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+	-khtml-border-radius: 6px;
+    -ms-border-radius: 6px;
+	-o-border-radius: 6px;
+    border-radius: 6px;	
+}
+
+
+
+
+p[data-value]:after {
+    content: attr(data-value) '%';
+    position: absolute;
+    right: 0;
+}
+div.progressbar{
+	background-color: whiteSmoke;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+    height: 20px;
+	display: -webkit-inline-box;
+	display: -moz-inline-box;
+	display: -ms-inline-box;
+	display: -o-inline-box;
+	display: inline-box;
+}
+div.progressbar span{
+	background-color: #0f4c80;/*30981e*/
+    border-radius: 3px;
+    display: block;
+    text-indent: 25%;
+    font-size: x-small;
+    white-space: nowrap;
+    overflow: visible;
+	font-weight: 800;
+}
+
+_progress[value] {
+    -webkit-appearance: none;
+    border: none;
+    width: 100%;
+    height: 20px;
+    background-color: whiteSmoke;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+    color: royalblue;
+    position: relative;
+    margin: 0 0 1.5em;
+}
+*::-moz-progressbar {
+    background-image:
+    -moz-linear-gradient(135deg,transparent,transparent 33%,rgba(0,0,0,.1) 33%,rgba(0,0,0,.1) 66%,transparent 66%),
+    -moz-linear-gradient(top,rgba(255, 255, 255, .25),rgba(0,0,0,.2)),
+	-moz-linear-gradient( left, #09c, #f44);
+}
+
+
+progressbar.pbcss3{
+	position: absolute;
+    width: 1000px;
+    height: 5px;
+    overflow-x: hidden;
+	margin: -10px -5%;
+}
+progressbar.pbcss3 bar.line{
+	position: absolute;
+    opacity: 0.4;
+    background: #b1b1b1;
+    width: 100%;
+    height: 5px;
+}
+progressbar.pbcss3 bar.subline{
+	position: absolute;
+    background: #ff3793;
+    height: 5px;
+}
+progressbar.pbcss3 bar.subline.inc{	animation: pbcss3-increase 2s infinite;	}
+progressbar.pbcss3 bar.subline.dec{	animation: pbcss3-decrease 2s 0.5s infinite; }
+
+@keyframes pbcss3-increase {
+   from { left: -5%; width: 5%; }
+   to { left: 130%; width: 100%;}
+}
+@keyframes pbcss3-decrease {
+   from { left: -80%; width: 80%; }
+   to { left: 110%; width: 10%;}
+}
+@-moz-keyframes pbcss3-increase {
+   from { left: -5%; width: 5%; }
+   to { left: 130%; width: 100%;}
+}
+@-moz-keyframes pbcss3-decrease {
+   from { left: -80%; width: 80%; }
+   to { left: 110%; width: 10%;}
+}
+@-webkit-keyframes pbcss3-increase {
+   from { left: -5%; width: 5%; }
+   to { left: 130%; width: 100%;}
+}
+@-webkit-keyframes pbcss3-decrease {
+   from { left: -80%; width: 80%; }
+   to { left: 110%; width: 10%;}
+}
+
+UL.MenuDropdown{
+	background-color: inherit;
+	border: 0.5px solid rgba(0, 0, 0, 0.3);
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+UL.MenuDropdown li{
+	/* Used to position the sub dropdown */
+	position: relative;
+	padding: 8px;
+
+	cursor: pointer;
+    white-space: nowrap;
+	font-size: 0.96em;
+	line-height: 1.2;
+	background-color: white;
+}
+UL.MenuDropdown ul li.submenu:after{
+	content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+	vertical-align: 0px;
+    border: 4px solid transparent;
+    border-left-color: currentcolor;
+    margin-top: 5px;
+    float: right;
+}
+
+UL.MenuDropdown ul{
+	background-color: inherit;
+	border: 0.5px solid rgba(0, 0, 0, 0.3);
+	display: none;
+	width: 200px;
+	left: 0;
+	position: absolute;
+	top: 100%;
+
+	/* Reset styles */
+	list-style-type: none;
+	margin: 0;
+	padding: 0;	
+}
+
+UL.MenuDropdown ul ul, UL.MenuDropdown ul ul ul, UL.MenuDropdown ul ul ul ul, UL.MenuDropdown ul ul ul ul ul{
+	left: 100%;
+	position: absolute;
+	top: 0;
+	border: none;
+	border-top: 0.5px solid rgba(0, 0, 0, 0.3);
+	background-color: inherit;
+}
+UL.MenuDropdown ul li{
+	border: 0.5px solid rgba(0, 0, 0, 0.3);
+	border-top: none;
+}
+UL.MenuDropdown li:hover{
+	background-color: rgba(200, 200, 200, 0.8);
+}
+UL.MenuDropdown li:hover > ul{
+	display: block;
+}
+
+nav.MenuDropdown{
+	display:flex;
+	background-color: white;
+    border: 1px solid rgba(0, 77, 138, 0.7);
+    padding: 0px;
+}
+nav.MenuDropdown button{
+	cursor: pointer;
+	border: none;
+    padding: 0px;
+	margin: 0px;
+}
+nav.MenuDropdown button img{
+	width: 36px;
+    height: 36px;
+    display: inline;
+    float: left;
+}
+nav.MenuDropdown li{
+    color: rgba(0, 77, 138);
+}
+figure.transparente{	
+	background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
+	background-size: 20px 20px;
+	background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
