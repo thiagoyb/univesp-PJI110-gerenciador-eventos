@@ -46,6 +46,22 @@ class Utils{
 		$s = str_ireplace('"','',$s);
 		return addslashes(strip_tags($s));
 	}
+	static function isFinalDeSemana($data){
+		$d = date('N',strtotime($data));
+		return $d==6||$d==7;
+	}
+	static function getNomeSemana($data, $abrev=true){
+		$arrDiaSem = explode(',',',SEG,TER,QUA,QUI,SEX,SAB,DOM');
+		$arrDiaSemana = explode(',',',Segunda-Feira,Terça-Feira,Quarta-Feira,Quinta-Feira,Sexta-Feira,Sábado,Domingo');
+		$d = date('N',strtotime($data));
+		return $abrev ? $arrDiaSem[$d] : $arrDiaSemana[$d];
+	}
+	static function getNomeMes($codMes, $abrev=false){
+		$arrMesAbrev = explode(',',',JAN,FEV,MAR,APR,MAI,JUN,JUL,AGO,SET,OUT,NOV,DEZ');
+		$arrMes = explode(',',',Janeiro,Fevreiro,Março,Abril,Maio,Junho,Julho,Agosto,Setembro,Outurbro,Novembro,Dezembro');
+		$diaMes = strpos($codMes,'-')!==false ? intval(date('m',strtotime($codMes))) : intval($codMes);
+		return $abrev ? $arrMesAbrev[$diaMes] : $arrMes[$diaMes];
+	}
 	static function isCPF($cpf){
 			$iguais=1;
 			$cpf = self::soNumeros($cpf);

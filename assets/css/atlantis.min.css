@@ -5488,6 +5488,7 @@ label {
     font-size: 14px;
     border-color: #ebedf2;
     padding: .6rem 1rem;
+	padding: .375rem .75rem;
     height: inherit !important
 }
 
