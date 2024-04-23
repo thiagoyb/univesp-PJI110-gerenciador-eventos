@@ -1,0 +1,128 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url("/src/imagem/planoDeFundo2.jpg"); /* imagem a ser inserida*/
+    background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o elemento */
+    background-position: center; /* Centraliza a imagem no elemento */
+    background-repeat: repeat; /* Evita a repetição da imagem */
+    background-attachment: fixed; /* Fixa a imagem de fundo para que ela não role com a página */
+    /*background: linear-gradient(to right, #ffed59, #fea01b, #ff914d); Caso queira manter um plano de fundo gradiente linear, você pode mesclar a imagem de fundo com o gradiente */
+    font-weight: bold;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between; /* Alinha os elementos na extremidade esquerda e direita */
+    align-items: center; /* Centraliza os elementos verticalmente */
+    padding: 20px 20px; /* Adiciona preenchimento nas laterais */
+  }
+  
+  .logotipo {
+    display: flex; /* Usa o modelo de layout flexível */
+    justify-content: left; /* Alinha os itens à esquerda dentro do contêiner flexível */
+    align-items: right; /* Alinha os itens à direita dentro do contêiner flexível */
+    min-height: calc(30vh - 100px); /* Define a altura do cabeçalho 60% da altura da janela de visualização */
+    padding: 100px 100px 10px; /* Define o preenchimento interno do cabeçalho */
+    text-align: center; /* Alinha o texto ao centro dentro do cabeçalho */
+  } 
+
+  #main-content {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+  }
+
+  .info {
+    display: inline;
+    text-align: justify;
+    height: 60vh; /* Define a altura da div para ocupar toda a altura do contêiner pai */
+    padding: 10px 30px;
+}
+
+.info h1 {
+    font-size: 35px; /* Tamanho da fonte para h1 dentro de #register-section */
+    text-align: center;
+    padding: 20px 30px;
+  }
+  
+.info h2 {
+    font-size: 23px; /* Tamanho da fonte para h1 dentro de #register-section */
+  }
+
+  #menu {
+    position: fixed; /* Fixa o menu na tela */
+    top: 0; /* Posiciona o menu no topo */
+    right: 0; /* Posiciona o menu à direita */
+    background: linear-gradient(to right, #fea01b, #ff914d); /* Cor de fundo do menu */
+    padding: 30px; /* Espaçamento interno do menu */
+    border-radius: 30px; /* Adiciona bordas arredondadas */
+    border: 0px solid #efcd99; /* Adiciona uma borda sólida de cor branca */
+  }
+  
+  #menu ul {
+    list-style-type: none; /* Remove os marcadores de lista */
+    padding: 0; /* Espaçamento interno do menu */
+    margin: 0; /* Espaçamento entre os itens de menu */
+  }
+  
+  #menu ul li {
+    display: inline-block; /* Exibe os itens de menu em linha */
+    margin-right: 20px; /* Espaçamento entre os itens de menu */
+  }
+  
+  #menu ul li:last-child {
+    margin-right: 0; /* Remove o espaçamento à direita do último item de menu */
+  }
+  
+  #menu ul li a {
+    color: #080808; /* Cor do texto dos itens de menu */
+    text-decoration: underline; /* Adiciona um sublinhado ao texto do item do menu quando o mouse passa sobre ele */
+    transition: color 0.3s; /* Efeito de transição suave para a cor do texto */
+  }
+  
+  #menu ul li:hover {
+    background-color: #efcd99; /* Altera a cor de fundo do item do menu quando o mouse passa sobre ele */
+  }
+  
+  #menu ul li:hover a {
+    color: #efcd99; /* Altera a cor do texto do item do menu quando o mouse passa sobre ele */
+  }
+  
+  #menu ul li a:hover {
+    text-decoration: underline; /* Adiciona um sublinhado ao texto do item do menu quando o mouse passa sobre ele */
+  }
+  
+  nav ul {
+    list-style-type: none; /* Remove os marcadores de lista */
+  }
+  
+  nav li {
+    display: inline;
+    margin-right: 100px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #050505;
+  }
+
+  .button {
+    display: inline-block; /* Exibe o elemento como um bloco em linha */
+    padding: 10px 30px; /* Preenchimento interno */
+    background-color: #ff914d; /* Cor de fundo do botão */
+    color: #050505; /* Cor do texto */
+    text-decoration: none; /* Remove sublinhado do texto */
+    font-size: 30px;
+    border-radius: 10px; /* Borda arredondada */
+    transition: background-color 0.3s; /* Efeito de transição suave ao passar o mouse */
+    font-weight: bold; /* Peso da fonte em negrito */
+  }
+  
+  .button:hover {
+    background-color: #efcd99; /* Mudança de cor de fundo ao passar o mouse */
+  }
+  
+  #register-button {
+    padding-left: 60px; /* Adicionado para separar o botão */
+    padding: 5px 5px;
+  }
+
