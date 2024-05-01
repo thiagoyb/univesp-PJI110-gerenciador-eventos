@@ -8,6 +8,9 @@ class Utils{
 	static function clearChars($str){
 		return strtr($str, array('\\'=>'', '/'=>'','\''=>'','"'=>'',':'=>'','*'=>'','?'=>'','<'=>'','>'=>'','|'=>''));
 	}
+	static function fromCharCode() {
+        return array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;});
+    }
 	static function geraToken(){
 		return md5(uniqid(rand(), true));
 	}
