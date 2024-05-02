@@ -1,13 +1,15 @@
 <?php
 	session_start();
-	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'User.php';
 	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Utils.php';
+	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'User.php';
 	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Controller.php';
 	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Config.php';	
 	define('URL_HOME', $Config['URL']);
+//User::login();
 
-$user = array('codUser'=>1,'nivel'=>1,'nome'=>'Suporte TI','email'=>'ti@mail');//a pegar dados do usuario User::auth(__FILE__);
-	define('USERNAME', isset($user['nome']) ? $user['nome'] : 'Anonimo');
+$user = User::auth(__FILE__);
+//echo 'Bem-vindo, '.$user->getNome().'<hr>';var_dump($user);
+	define('USERNAME', !empty($user) ? $user->getNome() : 'Anonimo');
 ?>
 <!DOCTYPE html>
 <HTML lang="pt-br">
@@ -18,10 +20,10 @@ $user = array('codUser'=>1,'nivel'=>1,'nome'=>'Suporte TI','email'=>'ti@mail');/
 	<link rel="shortcut icon" href="./../assets/img/orquidea.png"/>
 	<title>Administração</title>
 <?php
-	require_once('header.php');
+	require_once('nav.php');
 ?>
  </HEAD>
- <BODY bgcolor="#DDD" style="background-color: #ddd;">
+ <BODY bgcolor="#DDD" style="background-color: #DDD;">
   <MAIN class="container-fluid">
 	<section class="page">
 	<?php
