@@ -515,3 +515,162 @@ b.logado, i.destacado {
 		text-decoration: underline;
 		color: #1a0dab !important;
 	}
+	body.login {
+		color: #2A2F5B !important;
+	}
+	.login .wrapper.wrapper-login {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: unset;
+		padding: 15px;
+	}
+
+	.login .wrapper.wrapper-login .container-login .form-action, .login .wrapper.wrapper-login .container-signup .form-action {
+		text-align: center;
+		padding: 25px 10px 0;
+	}
+
+	.login .wrapper.wrapper-login .container-login:not(.container-transparent), .login .wrapper.wrapper-login .container-signup:not(.container-transparent) {
+		background: #ffffff;
+		-webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+		-moz-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+		box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+		border: 1px solid #ebecec;
+	}
+
+	.login .wrapper.wrapper-login .container-login, .login .wrapper.wrapper-login .container-signup {
+		width: 400px;
+		padding: 60px 25px;
+		border-radius: 5px;
+	}
+
+	.login .wrapper.wrapper-login .container-login:not(.container-transparent), .login .wrapper.wrapper-login .container-signup:not(.container-transparent) {
+		background: #ffffff;
+		-webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+		-moz-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+		box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+		border: 1px solid #ebecec;
+	}
+
+	.login .wrapper.wrapper-login .container-login, .login .wrapper.wrapper-login .container-signup {
+		width: 400px;
+		padding: 60px 25px;
+		border-radius: 5px;
+	}
+
+	.login .wrapper.wrapper-login .container-login h3, .login .wrapper.wrapper-login .container-signup h3 {
+		font-size: 19px;
+		font-weight: 600;
+		margin-bottom: 25px;
+	}
+
+	.login .wrapper.wrapper-login .container-login .form-sub, .login .wrapper.wrapper-login .container-signup .form-sub {
+		align-items: center;
+		justify-content: space-between;
+		padding: 8px 10px;
+	}
+
+	.login .wrapper.wrapper-login .container-login .form-action, .login .wrapper.wrapper-login .container-signup .form-action {
+		text-align: center;
+		padding: 25px 10px 0;
+	}
+
+	.login .show-password {
+		position: absolute;
+		right: 20px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 20px;
+		cursor: pointer;
+	}
+
+	.login .wrapper.wrapper-login .container-login .btn-login, .login .wrapper.wrapper-login .container-signup .btn-login {
+		padding: 15px 0;
+		width: 135px;
+	}
+
+	.login .wrapper.wrapper-login .container-login .login-account, .login .wrapper.wrapper-login .container-signup .login-account {
+		padding-top: 10px;
+		text-align: center;
+	}
+
+	.login .wrapper.wrapper-login .container-signup .form-action {
+		display: flex;
+		justify-content: center;
+	}
+
+	.login .wrapper.wrapper-login .container-login .form-action, .login .wrapper.wrapper-login .container-signup .form-action {
+		text-align: center;
+		padding: 25px 10px 0;
+	}
+
+	body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, .btn-simple, .alert, a, .td-name, td, button.close {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-family: 'Lato', sans-serif;
+	}
+	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+		line-height: 1.4;
+	}
+
+	h3, .h3 {
+		font-size: 1.1625rem;
+	}
+
+	.input-border-bottom {
+		border-width: 0 0 1px 0;
+		border-radius: 0px;
+		padding: .75rem 0;
+		background: transparent !important;
+	}
+
+	.form-control {
+		font-size: 14px;
+		border-color: #ebedf2;
+		padding: .6rem 1rem;
+		height: inherit !important;
+	}
+
+	.input-border-bottom {
+		border-width: 0 0 1px 0;
+		border-radius: 0px;
+		padding: .75rem 0;
+		background: transparent !important;
+	}
+
+	.icon-eye {
+		font-family: simple-line-icons;
+		speak: none;
+		font-style: normal;
+		font-weight: 400;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	.fadeIn {
+		-webkit-animation-name: fadeIn;
+		animation-name: fadeIn;
+	}
+	.animated {
+		-webkit-animation-duration: 1s;
+		animation-duration: 1s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+	}
+
+	.text-center {
+		text-align: center!important;
+	}
+
+	.form-floating-label {
+		position: relative;
+	}
+
+	.form-group, .form-check {
+		margin-bottom: 0;
+		padding: 10px;
+	}
