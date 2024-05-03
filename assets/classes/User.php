@@ -28,8 +28,12 @@
 						$this->email = $val;
 						break;
 					}
+					case 'senha':{
+						$this->senha = $val;
+						break;
+					}
 					case 'login':{
-						$this->login = $val;
+						$this->login = 'mail@mail.com';
 						break;
 					}
 					case 'perfil':{
@@ -37,6 +41,32 @@
 						break;
 					}
 				}
+			}
+		}
+
+		
+
+		static function login(){
+			//fazendo....
+		}
+
+		static function auth($origemFile, $visitante=false){
+			$UID = isset($_SESSION['GE_UID']) && !empty($_SESSION['GE_UID']) ? $_SESSION['GE_UID'] : null;
+			$user = $UID!=null ? new User($UID) : array();
+			$cPanel = User::getURL('panel');
+
+			if(!empty($user)){
+				if(isset($_SESSION['GE_Secret']) && $_SESSION['GE_Secret'] === md5($user->getSenha())){
+					if(basename(dirname($origemFile)) == 'panel'){
+						return $user;
+					}
+				}else{
+					setCookie("erro","Sua senha foi alterada. Faça seu login!");
+					if(!$visitante) header("Location: {$cPanel}/Login.php");
+				}
+			} else{
+			   setCookie("erro",'Bem-vindo !');
+			   if(!$visitante) header("Location: {$cPanel}/Login.php");
 			}
 		}
 
