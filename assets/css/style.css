@@ -345,7 +345,7 @@ b.logado, i.destacado {
 	}
 	footer{
 		background-position: center;
-		background-color: #008080;
+		background-color: #FD8642;
 		color: #000;
 		text-align: center;
 		font-size: 11.5px;
@@ -432,10 +432,10 @@ b.logado, i.destacado {
 		cursor: pointer;
 		position: relative;
 		z-index: 1;
-		border-bottom: solid #4f4f4f 1px;
-		border-top: solid #4f4f4f 1px;
+		border-bottom: solid #ff5d00 1px;
+		border-top: solid #ff5d00 1px;
 		color: snow;
-		background-color: #008080 !important;
+		background-color: #FD8642 !important;
 		font-size: 12px;
 		font-weight: bold;
 		white-space: nowrap;

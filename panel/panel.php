@@ -5,10 +5,8 @@
 	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Controller.php';
 	require dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Config.php';	
 	define('URL_HOME', $Config['URL']);
-//User::login();
 
 $user = User::auth(__FILE__);
-//echo 'Bem-vindo, '.$user->getNome().'<hr>';var_dump($user);
 	define('USERNAME', !empty($user) ? $user->getNome() : 'Anonimo');
 ?>
 <!DOCTYPE html>
