@@ -518,6 +518,16 @@ b.logado, i.destacado {
 	body.login {
 		color: #2A2F5B !important;
 	}
+	body main{
+		transition: all .3s;
+		background-color: rgb(252,158,62);
+		background: radial-gradient(circle, rgba(252,158,62,1) 0%, rgba(255,151,91,1) 35%, rgba(227,137,31,1) 100%);
+	}
+	form .form-message{
+		border-color: orange !important;
+		color: #6861ce;
+		font-weight: 600; 
+	}
 	.login .wrapper.wrapper-login {
 		display: flex;
 		justify-content: center;

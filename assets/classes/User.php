@@ -56,8 +56,39 @@
 			return dirname(dirname(dirname(__FILE__)));
 		}
 
-		static function login(){
-			//fazendo....
+		static function login($origemFile, $login, $senha){
+			$Sql = new Sql();
+
+			$login = Utils::soNumeros($login);
+			$cPanel = User::getURL('panel');
+
+			if($login!='' && $senha!=''){
+				if(Utils::isCPF($login)||Utils::isCNPJ($login)){
+					$senha = Utils::antiSQL($senha);
+
+					$querySql = "SELECT * FROM ge_usuarios WHERE ativado=1 AND login = '{$login}' AND senha = md5('{$senha}');";
+					$rs = $Sql->select1($querySql);
+					if(!empty($rs)){
+						$_SESSION['GE_UID'] = $rs['codUser'];
+						$_SESSION['Login'] = $rs['login'];
+						$_SESSION['GE_Secret'] = md5($rs['senha']);
+
+						return true;
+					} else{
+						$msgError = "Login ou senha incorretos !";
+						setCookie("erro",$msgError);
+						header("Location: {$cPanel}/Login.php");
+					}
+				} else{
+					$msgError = "Login inválido !";
+					setCookie("erro",$msgError);
+					header("Location: {$cPanel}/Login.php");
+				}
+			} else{
+				$msgError = "Login ou senha inválidos.";
+				setCookie("erro",$msgError);
+				header("Location: {$cPanel}/Login.php");
+			}
 		}
 
 		static function auth($origemFile, $visitante=false){
@@ -78,6 +109,10 @@
 			   setCookie("erro",'Bem-vindo !');
 			   if(!$visitante) header("Location: {$cPanel}/Login.php");
 			}
+		}
+		
+		static function Entrar(){
+			
 		}
 
 		public function getId(){

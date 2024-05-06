@@ -5,13 +5,13 @@ if(basename($_SERVER['PHP_SELF'])=='Usuarios.php'){
 }
 
 if(empty($user)){
-	echo '<meta http-equiv="refresh" content="1; url=index.php" />';
+	echo '<meta http-equiv="refresh" content="0; url=index.php" />';
 	exit;
 }
 
 $id = isset($_GET['id']) && $_GET['id']!='' && $_GET['id']>0 ?$_GET['id'] : null;
 if($user->getPerfil()!='TI' && $id != $user->getId()){
-	echo '<meta http-equiv="refresh" content="1; url=index.php?p=Usuarios&id='.$user->getId().'" />';
+	echo '<meta http-equiv="refresh" content="0; url=index.php?p=Usuarios&id='.$user->getId().'" />';
 	exit;
 }
 
