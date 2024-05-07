@@ -48,7 +48,7 @@
 			require dirname(__FILE__).DIRECTORY_SEPARATOR.'Config.php';
 
 			$URL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://');
-			$HOST = str_replace(Utils::fromCharCode(105,110,116,114,97,110,101,116,46),'',substr($Config['URL'], strpos($Config['URL'], '://')+3));
+			$HOST = substr($Config['URL'], strpos($Config['URL'], '://')+3);
 
 			return $URL.$HOST.$route;
 		}
@@ -110,7 +110,7 @@
 			   if(!$visitante) header("Location: {$cPanel}/Login.php");
 			}
 		}
-		
+
 		static function Entrar(){
 			
 		}

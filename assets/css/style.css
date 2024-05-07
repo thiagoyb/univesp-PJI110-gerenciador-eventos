@@ -518,7 +518,7 @@ b.logado, i.destacado {
 	body.login {
 		color: #2A2F5B !important;
 	}
-	body main{
+	body.login main{
 		transition: all .3s;
 		background-color: rgb(252,158,62);
 		background: radial-gradient(circle, rgba(252,158,62,1) 0%, rgba(255,151,91,1) 35%, rgba(227,137,31,1) 100%);
@@ -683,4 +683,12 @@ b.logado, i.destacado {
 	.form-group, .form-check {
 		margin-bottom: 0;
 		padding: 10px;
+	}
+	.form-cell{
+		margin-bottom: 0;
+		padding: 1px;
+	}
+	.form-cell.collapse{
+		margin-bottom: 0;
+		padding: 0px;
 	}

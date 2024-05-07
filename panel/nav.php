@@ -21,9 +21,13 @@
 				  <a class="nav-link" href="index.php" style="color: #fff;">Início</a>
 				</li> 
 
+				<?php
+				  if($user->getPerfil()=='TI'){ ?>
 				<li class="nav-item">
 				  <a class="nav-link" href="index.php?p=Menu" style="color: #fff;">Menu Principal</a>
-				</li>
+				</li><?php
+				  }
+				?>
 
 				<li class="nav-item">
 				  <a class="nav-link" href="index.php?p=Banners" style="color: #fff;">Banners</a>
@@ -57,8 +61,7 @@
 						<a href="index.php?p=Usuarios&id=<?= $user->getId(); ?>" class="nav-link" style="color: #000;">Meu Usuario</a>
 					</li>
 					<?php
-					  if($user->getPerfil()=='TI'){
-					?>
+					  if($user->getPerfil()=='TI'){ ?>
 					<li class="dropdown-item">
 						<a href="index.php?p=Usuarios" class="nav-link" style="color: #000;">Lista de Usuarios</a>
 					</li><?php

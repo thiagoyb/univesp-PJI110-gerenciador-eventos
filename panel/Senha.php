@@ -24,7 +24,7 @@ input, .form-control{
 </style>
 <div class="page-inner mb-5">
 	<div class="card">
-		<div class="card-header">
+		<div class="card-header bg-white card-title text-left">
 			<h4 class="card-title font-weight-bold"><i class="fas fa-asterisk mr-2"></i>Alteração de Senha</h4>
 		</div>
 
@@ -52,11 +52,11 @@ input, .form-control{
 					<div class="form-group col-12">
 						<div class="row">
 							<div class="col-4 text-left">							
-								<a href="index.php" class="btn btn-primary"><span class="fas fa-arrow-left"></span>Voltar</a>
+								<a href="index.php" class="btn btn-primary"><span class="fas fa-arrow-left mr-2"></span>Voltar</a>
 							</div>
 							<div class="col-8 text-right">
 								<input type="hidden" class="hidden" hidden id="username" name="username" autocomplete="username" value />
-								<button class="btn btn-success mr-1" type="button" disabled name="submit" onclick="AjaxController.alteraSenha('<?= $idForm;?>');">Salvar</button>
+								<button class="btn btn-success mr-1" type="button" name="submit" onclick="AjaxController.alteraSenha('<?= $idForm;?>');">Salvar</button>
 							</div>
 						</div>
 					</div>

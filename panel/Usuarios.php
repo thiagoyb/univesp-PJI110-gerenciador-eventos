@@ -25,14 +25,19 @@ $idForm = uniqid('usuarios');
 .maiusculo{
 	text-transform: uppercase;
 }
+.btn.btn-sm {
+    padding: 0px 3px;
+    text-decoration: none !important;
+    color: white !important;
+}
 </style>
 <div class="page-inner mb-5">
 	<div class="card">
-		<div class="card-header bg-white card-title text-left" style="border-bottom: 1px solid #cacaca !important;padding: 5px 20px;">
+		<div class="card-header bg-white card-title text-left">
 			<h4 class="card-title font-weight-bold"><i class="fas fa-user mr-2"></i><?= $acao=='LIST' ? "Gerenciar Usuarios" : ($acao=='NEW' ? "Cadastrar Usuario" : ($id == $user->getId() ? "Meu Usuario" : "Editar Usuario"));?>:</h4>
 		</div>
 
-		<div class="offset-md-0 col-12 col-md-12 col-lg-12 tela_central">
+		<div class="offset-md-0 col-12 col-md-12 col-lg-12">
 			<div class="card-subtitle">
 				<P class="title"></P>
 			</div>
@@ -164,13 +169,13 @@ $idForm = uniqid('usuarios');
 					<div class="form-group col-12">
 						<div class="row">
 							<div class="col-4">
-								<a href="index.php<?= $acao=='EDIT' && $user->getPerfil()=='TI'? '?p=Usuarios' : '?'; ?>" class="btn btn-primary"><span class="fas fa-arrow-left"></span>Voltar</a>
+								<a href="index.php<?= $acao=='EDIT' && $user->getPerfil()=='TI'? '?p=Usuarios' : '?'; ?>" class="btn btn-primary"><span class="fas fa-arrow-left mr-2"></span>Voltar</a>
 							</div>
 							<div class="col-8 text-right">
 							<?php
 							  if($acao=='EDIT'){ ?>
 								<button class="btn btn-danger mr-1" type="button" onclick="AjaxController.deleteUsuario('<?= $idForm;?>', <?= $id; ?>);">Apagar</button>
-								<button class="btn btn-success mr-1" type="button" disabled name="submit" onclick="AjaxController.updateUsuario('<?= $idForm;?>', <?= $id; ?>);">Atualizar</button>
+								<button class="btn btn-success mr-1" type="button" name="submit" onclick="AjaxController.updateUsuario('<?= $idForm;?>', <?= $id; ?>);">Atualizar</button>
 						<?php  } ?>
 						<?php
 							  if($acao=='NEW'){ ?>
@@ -184,15 +189,7 @@ $idForm = uniqid('usuarios');
 		</div>
 	</div>
 </div>
-<script>
-	function liberarAlteracao(id){
-		let form = id!='' ? document.querySelector('form[name=form_'+id+']') : document, btnSubmit = form.querySelector('[name=submit]');
-		if(btnSubmit){
-		  if(btnSubmit.innerHTML.indexOf('circLoader')<=-1){
-			btnSubmit.disabled = false;
-		  }	
-		}
-	}	
+<script>	
 	function openUsuario(id){
 		window.location.assign('?p=Usuarios&id='+id);
 	}
