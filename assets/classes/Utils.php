@@ -196,6 +196,33 @@ class Utils{
 	static function array_get($data){
 		return $data!=null && is_array($data) ? $data : array();
 	}
+
+	static function receiveAjaxData($method=null){
+		$_RECV = array();
+		$INPUT = file_get_contents('php://input');
+
+		switch($method){
+			case 'GET':{
+				$_RECV = isset($_GET) && $_GET!=null ? $_GET : array();
+				break;
+			}
+			case 'POST':{
+				$_RECV = isset($_POST) && $_POST!=null ? $_POST : array();
+				break;
+			}
+			case 'DELETE':
+			case 'PUT':{
+				if(strpos($INPUT,'=')!==false){
+					parse_str($INPUT,$_RECV);
+				} else{
+					$_RECV = json_decode($INPUT,JSON_NUMERIC_CHECK);
+				}
+				break;
+			}
+		}
+		return $_RECV;
+	}
+	
 	static function evalVar($var, $type=''){
 		switch($type){
 			case 'STR':{

@@ -3,8 +3,6 @@ if(basename($_SERVER['PHP_SELF'])=='Senha.php'){
 	header('Location: index.php?p=Senha');
 	exit;
 }
-
-$idForm = uniqid('Senha');
 ?>
 <style>
 .btn {
@@ -33,10 +31,10 @@ input, .form-control{
 				<i class="fas fa-user mr-2 mr-2"></i>Conta: <b class="usuario_logado ml-2"><?= $user->getEmail()!=null ? $user->getEmail() : ''; ?></b>
 			</label>
 
-			<form name="form_<?= $idForm;?>" id="form_senha" class="form text-center" onsubmit="return false;">				
+			<form name="form_senha" id="form_senha" class="form text-center" onsubmit="return false;">				
 				<div class="form-group text-left col-12">
 					<label class="required text-left negrito" for="password">Senha Atual:</label>
-					<input type="password" name="password" id="password" required class="form-control form-border text-left" autocomplete="current-password" onchange="liberarAlteracao('<?= $idForm;?>')" placeholder="Digite..">
+					<input type="password" name="password" id="password" required class="form-control form-border text-left" autocomplete="current-password" placeholder="Digite..">
 				</div>
 
 				<div class="form-group text-left col-12">
@@ -56,7 +54,7 @@ input, .form-control{
 							</div>
 							<div class="col-8 text-right">
 								<input type="hidden" class="hidden" hidden id="username" name="username" autocomplete="username" value />
-								<button class="btn btn-success mr-1" type="button" name="submit" onclick="AjaxController.alteraSenha('<?= $idForm;?>');">Salvar</button>
+								<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.alteraSenha('form_senha');">Salvar</button>
 							</div>
 						</div>
 					</div>

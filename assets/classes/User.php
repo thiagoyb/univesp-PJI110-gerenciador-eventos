@@ -1,4 +1,5 @@
 <?php
+	if(!session_id()){ session_start(); }	
 	if(!class_exists('Utils')) require 'Utils.php';
 	if(!class_exists('Sql')) require 'Sql.php';
 
@@ -98,7 +99,7 @@
 
 			if(!empty($user)){
 				if(isset($_SESSION['GE_Secret']) && $_SESSION['GE_Secret'] === md5($user->getSenha())){
-					if(basename(dirname($origemFile)) == 'panel'){
+					if(in_array(basename(dirname($origemFile)), array('panel','classes'))){
 						return $user;
 					}
 				}else{
@@ -111,8 +112,26 @@
 			}
 		}
 
-		static function Entrar(){
-			
+		public function alteraSenha($data, $keepSession=false){
+			$Sql = new Sql();
+
+			$senha1 = isset($data['password1']) ? $data['password1'] : null;
+			$senha2 = isset($data['password2']) ? $data['password2'] : null;
+			$senhaAtual = isset($data['password']) ? $data['password'] : null;
+
+			if($senha1!=null && $senha1 == $senha2){
+				if($this->getSenha() == md5($senhaAtual)){
+					$id = $this->getId();
+
+					$querySql ="UPDATE ge_usuarios SET Senha = MD5('{$senha1}') WHERE id = {$id}";
+					$rs = $Sql->update($querySql);
+
+					if($rs && $keepSession) $_SESSION['GE_Secret'] = md5(md5($senha));
+					return $rs;
+				}
+				else return 'Senha antiga não confere.';
+			}
+			else return 'As novas senhas devem ser iguais.';
 		}
 
 		public function getId(){
@@ -163,4 +182,39 @@
 				$this->perfil = $perfil;
 		}
 	}
+
+switch($_SERVER['REQUEST_METHOD']){
+    case 'PUT':{}
+	case 'POST':{
+		$arrResponse =  array('rs'=>false, 'msg'=>'');
+		$params = Utils::receiveAjaxData('GET');
+
+		if(isset($params['token']) && $params['token'] > time()){
+			$u = User::auth(__FILE__, true);
+			if(!empty($u)){
+				$rs = false;
+
+				switch($params['a']){
+					case 'alteraSenha':
+						$rs = $u->alteraSenha(Utils::receiveAjaxData('POST'));
+						break;
+					default:
+						$rs = 'Error: Ação desconhecida !';
+				}
+
+				$arrResponse['rs'] = is_bool($rs) && $rs===true;
+				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs'] ? 'Salvo com Sucesso !' : 'Error: ');
+
+				echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
+			}
+			else{
+				$arrResponse['rs'] = -1;
+				$arrResponse['msg'] = 'Error: Sessão expirada !';
+				echo json_encode($arrResponse);
+			}
+		}
+		break;
+	}
+	default:{}
+}
 ?>

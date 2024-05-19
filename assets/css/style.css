@@ -135,6 +135,38 @@
 		color: #686869;
 		font-family: -webkit-body;
 	}
+	.circLoader {
+		position: relative;
+		height: 15px;
+		width: 15px;
+		margin-right: 10px;
+		display: inline-block;
+		animation: circleLoading 5.4s infinite;
+	}
+	@keyframes circleLoading{
+	  0%{ transform: rotate(0deg); }
+	  100%{ transform: rotate(360deg);	}
+	}
+	.circLoader::after, .circLoader::before {
+	  content: '';
+	  background: white;
+	  position: absolute;
+	  display: inline-block;
+	  width: 100%;
+	  height: 100%;
+	  border-width: 2px;
+	  border-color: #333 #333 transparent transparent;
+	  border-style: solid;
+	  border-radius: 20px;
+	  box-sizing: border-box;
+	  top: 0;
+	  left: 0;
+	  animation: circleLoading 0.7s ease-in-out infinite;
+	}
+	.circLoader::after {
+	  animation: circleLoading 0.7s ease-in-out 0.1s infinite;
+	  background: transparent;
+	}
 	@media print{
 		.noprint, nav, .alert, #alert, button, .btn, footer, input[type=button],input[type=reset],input[type=submmit]{
 			display:none !important;
@@ -335,6 +367,25 @@ b.logado, i.destacado {
 .h10{ height:10px;}
 	.ls1{letter-spacing: 1px;}
 	.ls2{letter-spacing: 2px;}
+
+	div.fakeInput{
+		display: block;
+		font-size: 14px;
+		border: 1px solid #ebedf2;
+		padding: 0.6rem 1rem;
+	}
+	div.fakeInput[disabled], button[disabled]{
+		background: #e8e8e8 !important;
+		border-color: #dedede !important;
+	}
+	.btn.btn-sm {
+		padding: 0px 3px;
+		text-decoration: none !important;
+		color: white !important;
+	}
+	LI .fakeInput, LI .form-control{
+		padding: 5px 3px;
+	}
 	a.link{
 		color: #337AB7;
 		text-decoration: underline;
@@ -517,15 +568,18 @@ b.logado, i.destacado {
 	}
 	body.login {
 		color: #2A2F5B !important;
+		padding: 10px;
 	}
 	body.login main{
 		transition: all .3s;
-		background-color: rgb(252,158,62);
-		background: radial-gradient(circle, rgba(252,158,62,1) 0%, rgba(255,151,91,1) 35%, rgba(227,137,31,1) 100%);
+		background-color: #efcd99 !important;
+		/*background: radial-gradient(circle, rgba(252,158,62,1) 0%, rgba(255,151,91,1) 35%, rgba(227,137,31,1) 100%);
+		background: radial-gradient(circle, ghostwhite 9%, rgba(255, 151, 91, 1) 33%, orange 100%);*/
 	}
 	form .form-message{
+		background-color: #efcd99 !important;
 		border-color: orange !important;
-		color: #6861ce;
+		color: #9f5700;
 		font-weight: 600; 
 	}
 	.login .wrapper.wrapper-login {

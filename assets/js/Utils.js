@@ -79,6 +79,14 @@ class Utils{
 		return (new Set(array)).size!==array.length;
 	}
 
+	static Obj2FD(obj){
+		let data = new FormData();
+		for(const [key, val] of Object.entries(obj)){
+			data.append(key,val);
+		}
+		return data;
+	}
+
 	static time = ()=>{
 		return new Date().getTime();
 	}
