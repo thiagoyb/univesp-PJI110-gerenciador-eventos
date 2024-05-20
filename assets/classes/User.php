@@ -112,21 +112,21 @@
 			}
 		}
 
-		public function alteraSenha($data, $keepSession=false){
+		public function alteraSenha($data, $manterSessao=false){
 			$Sql = new Sql();
 
-			$senha1 = isset($data['password1']) ? $data['password1'] : null;
-			$senha2 = isset($data['password2']) ? $data['password2'] : null;
-			$senhaAtual = isset($data['password']) ? $data['password'] : null;
+			$senha1 = isset($data['password1']) ? md5($data['password1']) : null;
+			$senha2 = isset($data['password2']) ? md5($data['password2']) : null;
+			$senhaAtual = isset($data['password']) ? md5($data['password']) : null;
 
 			if($senha1!=null && $senha1 == $senha2){
-				if($this->getSenha() == md5($senhaAtual)){
+				if($this->getSenha() == $senhaAtual){
 					$id = $this->getId();
 
-					$querySql ="UPDATE ge_usuarios SET Senha = MD5('{$senha1}') WHERE id = {$id}";
+					$querySql ="UPDATE ge_usuarios SET senha = '{$senha1}' WHERE id = {$id}";
 					$rs = $Sql->update($querySql);
 
-					if($rs && $keepSession) $_SESSION['GE_Secret'] = md5(md5($senha));
+					if($rs && $manterSessao) $_SESSION['GE_Secret'] = md5($senha1);
 					return $rs;
 				}
 				else return 'Senha antiga não confere.';
