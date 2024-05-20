@@ -27,6 +27,16 @@
   }
 });
 	class Swal{
+		static alertMsg(title, msg, type){
+			return swal(title, msg, {
+				icon : type,
+				buttons: {
+					confirm: {
+					  className :  type=='error' ? 'btn btn-danger' : 'btn btn-success'
+					}
+				},
+			});
+		}
 		static alertError(title, msg){
 			return swal(title, msg, {
 				icon : 'error',
@@ -42,7 +52,7 @@
 				icon : 'success',
 				buttons: {
 					confirm: {
-					  className :  'btn btn-danger'
+					  className :  'btn btn-success'
 					}
 				},
 			});
@@ -68,8 +78,8 @@
 			}
 		  }
 		}
-		static prepare(c){
-			let form = c!=null&&c!='' ? document.querySelector('form[name='+c+']') : document, btn = form.querySelector('[name=submit]');
+		static prepare(form){
+			let btn = form.querySelector('[name=submit]');
 			if(btn){
 				btn.setAttribute('disabled', true);
 				btn.innerHTML="<i class='ml-2 circLoader' data-text='"+btn.innerText+"'></i>";
@@ -105,10 +115,10 @@
 			});
 			return !err ? o : {};
 		}
-		static alteraSenha(c){
-			let form = c!=null&&c!='' ? document.querySelector('form[name='+c+']') : document, o = Controller.receiveForm(form), token = Controller.getToken();
+		static alteraSenha(e){
+			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
 			if(Object.keys(o).length>0 && o.password1 == o.password2){
-				Controller.prepare(c);
+				Controller.prepare(form);
 				return fetch(`./../assets/classes/User.php?a=alteraSenha&token=${token}`,{
 					method: 'POST', headers: {
 					  'Accept': 'application/json'
@@ -116,21 +126,18 @@
 					body: Utils.Obj2FD(o)
 				})
 				.then(response => {
+					Controller.reset();
 					if(!response.ok){
-					   Controller.reset();
-					   throw new Error('Error: '+response.statusText);
+					   throw new Error('Error '+response.status+': '+response.statusText);
 					}
 					return response.json();
 				})
 				.then(rs => {
-					Controller.reset();
-					if(rs.rs>0){
+					if(rs.rs!=-1){
 						if(rs.rs!=1){
-							SwalAlert('Atenção', rs.msg!='' ? rs.msg : 'Error: ', rs.rs<1 ? 'error' : 'success');
+							Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
 						} else{
-							SwalAlert('Mensagem', rs.msg ? rs.msg : 'Salvo! ', 'success')?.then(()=>{
-								setTimeout(()=>{window.location.assign('?page=Senha&id='+rs.id);}, 1000);
-							});
+							Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{ form.reset(); });
 						}
 					}
 				});

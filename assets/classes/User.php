@@ -112,7 +112,7 @@
 			}
 		}
 
-		public function alteraSenha($data, $manterSessao=false){
+		public function alterarSenha($data, $manterSessao=false){
 			$Sql = new Sql();
 
 			$senha1 = isset($data['password1']) ? md5($data['password1']) : null;
@@ -123,7 +123,8 @@
 				if($this->getSenha() == $senhaAtual){
 					$id = $this->getId();
 
-					$querySql ="UPDATE ge_usuarios SET senha = '{$senha1}' WHERE id = {$id}";
+					$querySql ="UPDATE ge_usuarios SET senha = '{$senha1}' WHERE codUser = {$id}";
+
 					$rs = $Sql->update($querySql);
 
 					if($rs && $manterSessao) $_SESSION['GE_Secret'] = md5($senha1);
@@ -196,7 +197,7 @@ switch($_SERVER['REQUEST_METHOD']){
 
 				switch($params['a']){
 					case 'alteraSenha':
-						$rs = $u->alteraSenha(Utils::receiveAjaxData('POST'));
+						$rs = $u->alterarSenha(Utils::receiveAjaxData('POST'), true);
 						break;
 					default:
 						$rs = 'Error: Ação desconhecida !';
@@ -204,15 +205,11 @@ switch($_SERVER['REQUEST_METHOD']){
 
 				$arrResponse['rs'] = is_bool($rs) && $rs===true;
 				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs'] ? 'Salvo com Sucesso !' : 'Error: ');
-
-				echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
 			}
-			else{
-				$arrResponse['rs'] = -1;
-				$arrResponse['msg'] = 'Error: Sessão expirada !';
-				echo json_encode($arrResponse);
-			}
+			else{ $arrResponse['rs'] = -1; }
 		}
+
+		echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
 		break;
 	}
 	default:{}

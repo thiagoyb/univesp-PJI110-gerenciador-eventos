@@ -54,7 +54,7 @@ input, .form-control{
 							</div>
 							<div class="col-8 text-right">
 								<input type="hidden" class="hidden" hidden id="username" name="username" autocomplete="username" value />
-								<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.alteraSenha('form_senha');">Salvar</button>
+								<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.alteraSenha(this);">Salvar</button>
 							</div>
 						</div>
 					</div>
