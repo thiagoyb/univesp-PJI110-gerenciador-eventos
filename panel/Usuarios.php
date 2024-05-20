@@ -44,6 +44,10 @@ $idForm = uniqid('usuarios');
 			<form name="form_<?= $idForm;?>" action="" enctype="multipart/form-data" method="post">
 			<?php
 				if($acao=='LIST'){ ?>
+					<div class="col-12 text-right">
+						<a target="_self" href="index.php?p=Usuarios&acao=novoUsuario" class="btn btn-danger font-size-small mb-2"><i class="fas fa-plus mr-3"></i>Cadastrar</a>
+					</div>
+
 					<TABLE border="0" align="center" class="table_usuarios rs col-12 collapse show" cellpadding="5" style="display:table;">
 					<TR>
 						<TH class="text-center">ID</TH>
@@ -148,13 +152,11 @@ $idForm = uniqid('usuarios');
 
 					<?php
 						if($user->getPerfil()=='TI'){ ?>
-
 						<div class="form-group col-4 col-lg-4">
 							<label class="font-weight-bold d-block required" for="nivel">Perfil:</label>
 							<div class="switchContainer"><?php
 								$valorBol =$Usuario['perfil']=='TI' ? 'on' : 'off';
-								$checado = $valorBol=='on' ? ' checked' : '';
-								?>
+								$checado = $valorBol=='on' ? ' checked' : ''; ?>
 								<input type="checkbox" id="Administrador" name="Administrador" value="<?= $valorBol;?>" <?= $checado;?> class="switcher" role="switcher" onchange="liberarAlteracao('<?= $idForm;?>')" />
 								<label class="switch" for="Administrador" style="color:#777">Administrador</label>
 							</div>
@@ -169,17 +171,16 @@ $idForm = uniqid('usuarios');
 					<div class="form-group col-12">
 						<div class="row">
 							<div class="col-4">
-								<a href="index.php<?= $acao=='EDIT' && $user->getPerfil()=='TI'? '?p=Usuarios' : '?'; ?>" class="btn btn-primary"><span class="fas fa-arrow-left mr-2"></span>Voltar</a>
+								<a href="index.php<?= $acao!='LIST' && $user->getPerfil()=='TI'? '?p=Usuarios' : '?'; ?>" class="btn btn-primary"><i class="fas fa-arrow-left mr-2"></i>Voltar</a>
 							</div>
 							<div class="col-8 text-right">
 							<?php
 							  if($acao=='EDIT'){ ?>
-								<button class="btn btn-danger mr-1" type="button" onclick="AjaxController.deleteUsuario('<?= $idForm;?>', <?= $id; ?>);">Apagar</button>
-								<button class="btn btn-success mr-1" type="button" name="submit" onclick="AjaxController.updateUsuario('<?= $idForm;?>', <?= $id; ?>);">Atualizar</button>
-						<?php  } ?>
-						<?php
+								<button class="btn btn-success mr-1" name="submit" onclick="Controller.updateUsuario(this, <?= $id; ?>);">Atualizar</button>
+						<?php  } 
+
 							  if($acao=='NEW'){ ?>
-								<button onclick="<?= $acao=='LIST' ? "location.href='?p=Usuarios&acao=novoUsuario'" : "AjaxController.novoUsuario('".$idForm."')"; ?>" name="submit" class="btn btn-danger ml-1" type="button" ><span class="fas fa-trash-alt"></span>Cadastrar</button>
+								<button class="btn btn-danger ml-1" name="submit" onclick="Controller.novoUsuario(this)">Cadastrar</button>
 						<?php  } ?>
 							</div>
 						</div>
