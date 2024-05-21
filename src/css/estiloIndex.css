@@ -154,3 +154,35 @@ section.content{
 }
 
 
+.siga-loading{
+    position: relative;
+    height: 10px;
+    width: 1110%;
+    border: 10px solid #f4a261;
+    border-radius: 15px;
+}
+.siga-loading .color{
+    position: absolute;
+    background-color: #ffffff;
+    width: 0px;
+    height: 10px;
+    border-radius: 15px;
+    animation: siga-loading 4s infinite linear;    
+}
+@keyframes siga-loading{
+    0%{
+      width: 0%;
+    }
+    25%{
+        width: 50%;
+    }
+    50%{
+        width: 75%;
+    }
+    75%{
+        width: 85%;
+    }
+    100%{
+        width: 100%;
+    }
+};

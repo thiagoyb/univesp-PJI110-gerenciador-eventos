@@ -561,10 +561,6 @@ b.logado, i.destacado {
 		background-color: lightblue;
 	}
 	.justify{ text-align: justify !important; }	
-	.tela_central a, .content a{
-		text-decoration: underline;
-		color: #1a0dab !important;
-	}
 	body.login {
 		color: #2A2F5B !important;
 		padding: 10px;
