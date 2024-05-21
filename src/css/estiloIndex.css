@@ -13,7 +13,7 @@ body {
   display: flex;
   justify-content: space-between; /* Alinha os elementos na extremidade esquerda e direita */
   align-items: center; /* Centraliza os elementos verticalmente */
-  padding: 0 100px; /* Adiciona preenchimento nas laterais */
+  padding: 0 10px; /* Adiciona preenchimento nas laterais */
 }
 
 .logotipo {
@@ -42,7 +42,7 @@ body {
 }
 
 #menu ul li {
-  display: inline-block; /* Exibe os itens de menu em linha */
+  display: inline-block !important; /* Exibe os itens de menu em linha */
   margin-right: 20px; /* Espaçamento entre os itens de menu */
 }
 
@@ -51,6 +51,7 @@ body {
 }
 
 #menu ul li a {
+  display: inline-block !important;
   color: #080808; /* Cor do texto dos itens de menu */
   text-decoration: underline; /* Adiciona um sublinhado ao texto do item do menu quando o mouse passa sobre ele */
   transition: color 0.3s; /* Efeito de transição suave para a cor do texto */
@@ -127,7 +128,7 @@ nav a {
   font-size: 25px; /* Tamanho da fonte para h1 dentro de #register-section */
 }
 
-section.container{
+section.content{
     margin-top: 1%;
     padding: 1%;
 	background-color: rgb(254, 254, 254, 0.1);

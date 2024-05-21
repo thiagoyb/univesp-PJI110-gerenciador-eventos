@@ -343,28 +343,56 @@ section.page {
     display: block;
     min-height: 74vh;
 }
-header{ background-color: white; }
+section.content{
+    margin-top: 1%;
+    padding: 1%;
+	background-color: rgb(254, 254, 254, 0.1);
+    border: 1px #fefefe00 solid;
+    display: block;
+    min-height: 74vh;
+}
+
 .border-bottom{
 	border-bottom: 1px solid #cacaca !important;
 }
 .inteiro{ width: 100%; }
 .metade{ width: 50%; }
 .umQuarto{ width: 25%; }
+img.imgToUpload{
+	width: 25%;
+}
 b.logado, i.destacado {
     white-space: nowrap;
     color: #d24145 !important;
 }
-.default_color {
-	background-color: #FD8642 !important;
-	background-color: #ff914c !important;
-}
-.default_color a:not(.dropdown-menu a){
-	color: papayawhip;
-}
-.default_color LI:hover{
-	background-color: #FEA046;
-	color: #FFD34D !important;
-}
+	nav ul.menu LI{
+		padding: 1rem 4rem !important;
+	}
+	button.navbar-toggler{
+		font-weight: 700;
+		margin-bottom: 1%;
+		background-color: #eb701d;
+		border:1px solid #833400;
+		color: #EEE;
+	}
+	button.navbar-toggler strong, button.navbar-toggler strong:hover{
+		color: #FFF !important;
+		font-weight: 700;
+	}
+	.default_gradient{
+		background: linear-gradient(to right, #fea01b, #ff914d);
+	}
+	.default_color {
+		background-color: #FD8642 !important;
+		background-color: #ff914c !important;
+	}
+	.default_color a:not(.dropdown-menu a){
+		color: papayawhip;
+	}
+	.default_color LI:hover{
+		background-color: #fea046;
+		color: #FFD34D !important;
+	}
 .h10{ height:10px;}
 	.ls1{letter-spacing: 1px;}
 	.ls2{letter-spacing: 2px;}
@@ -406,37 +434,7 @@ b.logado, i.destacado {
 		height: auto;
 		box-shadow: inset 0 3px 5px #f04033;
 	}
-	UL.menu{
-		list-style: none;
-		text-decoration: none;
-		text-align: center;
-		margin: 0px auto;
-		align-items: center;
-	}
-	UL.menu LI:after{
-		content: '';
-		display: table;
-		clear: both;
-	}
-	UL.menu LI{
-		display: inline-block;
-		cursor: pointer !important;
-		padding: 0px !important;
-		margin: 0px !important;
 
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		
-		-webkit-border-radius: 6px;
-		-khml-border-radius: 6px;
-		-moz-border-radius: 6px;
-		-o-border-radius: 6px;
-		border-radius: 6px;
-	}
-	UL.menu LI a [type=button]{
-		padding: 1rem 2.5rem;
-	}
 	.required:before {
 		content: '*';
 		color: darkred;
