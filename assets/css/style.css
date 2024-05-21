@@ -356,6 +356,7 @@ b.logado, i.destacado {
 }
 .default_color {
 	background-color: #FD8642 !important;
+	background-color: #ff914c !important;
 }
 .default_color a:not(.dropdown-menu a){
 	color: papayawhip;
