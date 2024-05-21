@@ -1,5 +1,7 @@
 <?php
+	if(!session_id()){ session_start(); }	
 	if(!class_exists('Utils')) require 'Utils.php';
+	if(!class_exists('User')) require 'User.php';
 	if(!class_exists('Sql')) require 'Sql.php';
 
 class Controller{
@@ -18,24 +20,26 @@ class Controller{
 		}
 		return $secoes;
 	}
-	static function updateSecoes($idUser, $arrSecoes){
+	static function updateMenus($data){
 		$Sql = new Sql();
-		$arrCampos=array();
-		$whereAdd = "";
 		$rs = false;
 
-		foreach($arrSecoes as $secao){
-			$arrCampos['ordem'] = isset($secao['ordem'])&&$secao['ordem']>0 ? $secao['ordem'] : null;
-			$arrCampos['nome'] = isset($secao['nome'])&&$secao['nome']!='' ? $secao['nome'] : null;
-			$arrCampos['titulo'] = isset($secao['titulo'])&&$secao['titulo']!='' ? $secao['titulo'] : null;
-			$arrCampos['url'] = isset($secao['url'])  ? $secao['url'] : null;
-			$arrCampos['publicar'] = isset($secao['ativado']) ? $secao['ativado'] : null;
+		$total = isset($data['total']) ? $data['total'] : 0;
+		if(!empty($data)){
+			foreach(range(1, $total) as $i){
+				$arrCampos=array();
+				$arrCampos['ordem'] = isset($data['ordem'.$i])&&$data['ordem'.$i]>0 ? $data['ordem'.$i] : null;
+				$arrCampos['nome'] = isset($data['nome'.$i])&&$data['nome'.$i]!='' ? $data['nome'.$i] : null;
+				$arrCampos['titulo'] = isset($data['titulo'.$i])&&$data['titulo'.$i]!='' ? $data['titulo'.$i] : null;
+				$arrCampos['url'] = isset($data['url'.$i])  ? $data['url'.$i] : null;
+				$arrCampos['publicar'] = isset($data['publicar'.$i]) ? $data['publicar'.$i] : null;
 
-			$id = isset($secao['id']) ? $secao['id'] : null;
-			$rs = $id!=null ? $Sql->updateInstance('ge_secao', array('codSecao'=>$id), $arrCampos, $whereAdd, true) : true;
+				$id = isset($data['id'.$i]) ? $data['id'.$i] : null;
+				$rs = $id!=null ? $Sql->updateInstance('ge_secao', array('codSecao'=>$id), $arrCampos, '', true) : true;
+			}
+			
+			return $rs===true ? $rs : 'Erro ao salvar os dados.';
 		}
-
-		return $rs===true ? $rs : 'Erro ao salvar os dados.';
 	}
 
 	static function obterNoticias($id=null, $publicar=false){
@@ -315,5 +319,33 @@ class Controller{
 		return $rs===true ? $rs : 'Erro ao salvar os dados.';
 	}
 
+}
+
+switch($_SERVER['REQUEST_METHOD']){
+	case 'POST':{
+		$arrResponse =  array('rs'=>false, 'msg'=>'');
+		$params = Utils::receiveAjaxData('GET');
+
+		if(isset($params['token']) && $params['token'] > time()){
+			$u = User::auth(__FILE__, true);
+			if(!empty($u)){
+				$rs = false;
+
+				switch($params['a']){
+					case 'updateMenu':
+						$rs = $u->getPerfil()=='TI' ? Controller::updateMenus(Utils::receiveAjaxData('POST')) : "Sem Permissão para essa função !";
+						break;
+				}
+
+				$arrResponse['rs'] = is_bool($rs) && $rs===true;
+				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs'] ? 'Salvo com Sucesso !' : 'Error: ');
+			}
+			else{ $arrResponse['rs'] = -1; }
+		}
+
+		echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
+		break;
+	}
+	default:{}
 }
 ?>

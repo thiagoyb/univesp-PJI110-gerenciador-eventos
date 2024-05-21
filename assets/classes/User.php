@@ -199,8 +199,6 @@ switch($_SERVER['REQUEST_METHOD']){
 					case 'alteraSenha':
 						$rs = $u->alterarSenha(Utils::receiveAjaxData('POST'), true);
 						break;
-					default:
-						$rs = 'Error: Ação desconhecida !';
 				}
 
 				$arrResponse['rs'] = is_bool($rs) && $rs===true;

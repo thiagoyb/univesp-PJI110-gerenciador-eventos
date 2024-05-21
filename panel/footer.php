@@ -115,6 +115,7 @@
 			});
 			return !err ? o : {};
 		}
+
 		static alteraSenha(e){
 			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
 			if(Object.keys(o).length>0 && o.password1 == o.password2){
@@ -142,6 +143,40 @@
 					}
 				});
 			} else{ Swal.alertError('Error', 'As senhas devem ser iguais.'); }
+		}
+		static updateMenu(e){
+			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), orders=[], token = Controller.getToken();
+			Array.from(form.querySelectorAll('[name*=ordem]:not([disabled])')).forEach(i=>{ orders.push(i.value); });
+			if(Object.keys(o).length>0){
+				if(!Utils.hasDuplicates(orders)){
+					o['total'] = orders.length;
+					Controller.prepare(form);
+					return fetch(`./../assets/classes/Controller.php?a=updateMenu&token=${token}`,{
+						method: 'POST', headers: {
+						  'Accept': 'application/json'
+						},
+						body: Utils.Obj2FD(o)
+					})
+					.then(response => {
+						Controller.reset();
+						if(!response.ok){
+						   throw new Error('Error '+response.status+': '+response.statusText);
+						}
+						return response.json();
+					})
+					.then(rs => {
+						if(rs.rs!=-1){
+							if(rs.rs!=1){
+								Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
+							} else{
+								Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{
+									window.location.reload();
+								});
+							}
+						}
+					});
+				} else Swal.alertError('Error', 'Os campos de Ordenação não podem ter valores repetidos.');
+			}
 		}
 	}
 </SCRIPT>
