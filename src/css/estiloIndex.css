@@ -1,7 +1,7 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-image: url("/src/imagem/planoDeFundo2.jpg"); /* imagem a ser inserida*/
-  background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o elemento */
+  background-image: url("./../imagem/planoDeFundo2.jpg") !important; /* imagem a ser inserida*/
+  background-size: cover !important; /* Ajusta o tamanho da imagem para cobrir todo o elemento */
   background-position: center; /* Centraliza a imagem no elemento */
   background-repeat: repeat; /* Evita a repetição da imagem */
   background-attachment: fixed; /* Fixa a imagem de fundo para que ela não role com a página */
@@ -74,7 +74,7 @@ nav ul {
 
 nav li {
   display: inline;
-  margin-right: 100px;
+  margin-right: 10px;
 }
 
 nav a {
@@ -125,6 +125,15 @@ nav a {
 
 #register-section h2 {
   font-size: 25px; /* Tamanho da fonte para h1 dentro de #register-section */
+}
+
+section.container{
+    margin-top: 1%;
+    padding: 1%;
+	background-color: rgb(254, 254, 254, 0.1);
+    border: 1px #fefefe00 solid;
+    display: block;
+    min-height: 74vh;
 }
 
 .button {
