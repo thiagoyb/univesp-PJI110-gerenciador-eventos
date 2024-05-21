@@ -1,5 +1,5 @@
 <?php
-	$Menus = Controller::obterMenus(null, true);
+	$Menus = Controller::obterSecoes(null, true);
 ?>
   <LINK rel="stylesheet" type="text/css" href="<?= URL_HOME; ?>assets/css/bootstrap.min.css"></LINK>
   <LINK rel="stylesheet" type="text/css" href="<?= URL_HOME; ?>assets/css/bootstrap.css"></LINK>
