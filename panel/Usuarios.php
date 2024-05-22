@@ -45,7 +45,7 @@ $idForm = uniqid('usuarios');
 			<?php
 				if($acao=='LIST'){ ?>
 					<div class="col-12 text-right">
-						<a target="_self" href="index.php?p=Usuarios&acao=novoUsuario" class="btn btn-danger font-size-small mb-2"><i class="fas fa-plus mr-3"></i>Cadastrar</a>
+						<a target="_self" href="index.php?p=Usuarios&acao=novoUsuario" class="btn btn-danger font-size-small mb-2"><i class="fas fa-plus mr-2"></i>Cadastrar</a>
 					</div>
 
 					<TABLE border="0" align="center" class="table_usuarios rs col-12 collapse show" cellpadding="5" style="display:table;">

@@ -12,7 +12,7 @@ if($user->getPerfil()!='TI'){
 
 $acao = $id!=null && $id>0 ? 'EDIT' : 'LIST';
 
-$Menus = Controller::obterSecoes($id);
+$Menus = Controller::obterMenus($id);
 $idForm = uniqid('secoes');
 ?>
 <style>
@@ -36,9 +36,6 @@ div.fakeInput[disabled]{
 }
 LI .fakeInput, LI .form-control{
 	padding: 5px 3px;
-}
-UL LI:hover, UL LI:hover .row, UL LI:hover input{
-	background-color: #FEFEFE !important;
 }
 </style>
 <div class="page-inner mb-5">

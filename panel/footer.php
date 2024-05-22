@@ -11,7 +11,7 @@
 	<script type="application/javascript" src="<?= URL_HOME; ?>assets/js/sweetalert.min.js"></script>
 	<script type="application/javascript" src="<?= URL_HOME; ?>assets/js/tinymce/tinymce.min.js"></script>
 <SCRIPT>tinymce.init({
-  selector:'textarea#conteudo',
+  selector:'textarea#descricao',
   branding: false,
   language: 'pt_BR',
   plugins: 'print preview paste image link hr pagebreak insertdatetime lists wordcount help emoticons',
@@ -87,7 +87,7 @@
 				}
 			}
 		}
-		static preparaFiles(f){
+		static prepareFiles(f){
 		  if(f.files.length>0){
 			let file = f.files[0], id = f.name+'FileStatus', old = f.parentElement.querySelector('#'+id);
 			if(old) old.remove();

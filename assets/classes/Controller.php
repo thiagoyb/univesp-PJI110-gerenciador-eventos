@@ -126,6 +126,22 @@ class Controller{
 		return $rs===true ? $rs : 'Erro ao salvar os dados.';
 	}
 
+	static function obterEventos($id=null, $idUser=null, $publicar=null){
+		$Sql = new Sql();
+
+		$whereAdd = $publicar!=null ? ( $publicar===true ? " AND publicar = 1"  : " AND publicar = 0" ) : '';
+		$whereAdd .= $idUser!=null && $idUser>0 ? " AND fkUser = {$idUser}" : "";
+		$whereAdd .= $id!=null && $id>0 ? " AND codEvento = {$id}" : "";
+		$querySql = "SELECT * FROM ge_eventos E WHERE codEvento>0 {$whereAdd} ORDER BY fkUser, data_cadastro DESC;";
+
+		$Eventos = array();
+		foreach(Utils::array_get($Sql->select($querySql)) as $data){
+			$Eventos[] = $data;
+		}
+
+		return $Eventos;
+	}
+
 	static function obterBanners($id=null, $idUser=null, $publicar=null){
 		$Sql = new Sql();
 
@@ -150,7 +166,7 @@ class Controller{
 
 		if($idUser>0){
 			$Banner['fkUser'] = $idUser;
-			//$Banner['ordem'] = isset($PUT['ordem']) ? Utils::soNumeros($PUT['ordem']) : null;
+			$Banner['ordem'] = isset($PUT['ordem']) ? Utils::soNumeros($PUT['ordem']) : null;
 			$Banner['titulo'] = isset($PUT['titulo'])&&$PUT['titulo']!='' ? $PUT['titulo'] : 'NULL';
 			$Banner['largura'] = isset($PUT['largura']) ? Utils::soNumeros($PUT['largura']) : 'NULL';
 			$Banner['altura'] = isset($PUT['altura']) ? Utils::soNumeros($PUT['altura']) : 'NULL';
