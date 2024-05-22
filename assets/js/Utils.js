@@ -31,6 +31,20 @@ class Utils{
 			(domain.lastIndexOf(".") < domain.length - 1)
 		);
 	}
+	
+	static logBase = (val, base) =>{
+		return Math.log(val)/Math.log(base);
+	}
+	static byteConvert = bytes =>{
+		if(bytes==0) return '0B';
+		let s = ['B','K','M','G','T','P','E','Z','Y'];
+		let e = Math.floor(Utils.logBase(bytes, 1024));
+		return Math.round(bytes/Math.pow(1024, e)).toFixed(2)+s[e];
+	}
+
+	static count = (q, root = document) =>{
+		return root.querySelectorAll(q).length;
+	}
 
 	static isDatalistVal = (id, val) =>{
 		let opt = document.querySelector("datalist#"+id+" option[value='"+val+"']");

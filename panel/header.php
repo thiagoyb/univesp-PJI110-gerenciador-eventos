@@ -28,17 +28,6 @@
     font-weight: bold;
     font-family: serif;
  }
-  button.navbar-toggler{
-	  font-weight: 700;
-	  margin-bottom: 1%;
-	  background-color: #114065;
-	  border:1px solid #EEE;
-	  color: #EEE;
-  }
-  button.navbar-toggler strong, button.navbar-toggler strong:hover{
-	color: #FFF !important;
-	font-weight: 700;
-  }
   #navToggle:checked + .navbar-collapse{
 	  display:block;
   }

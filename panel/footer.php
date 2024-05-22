@@ -59,6 +59,34 @@
 		}
 	}
 	class Controller{
+		static prepareImage(e){
+			let form = e.closest('form') ? e.closest('form') : document, reader = new FileReader();
+			if(e.files.length>0){
+				let file = e.files[0], id = e.name+'ToUpload', old = form.querySelector('#'+id);
+				if(old) old.remove();
+				const max = e.dataset.maxfilesize, size = Utils.byteConvert(file.size);
+				if(e.accept.split(',').indexOf(file.type) !== -1){
+					if(file.size <= max *1024*1024){
+						reader.readAsDataURL(file);
+						reader.onload = function(){
+							if(reader.readyState==2){
+								let container = document.createElement('DIV');
+								container.setAttribute('id',id);
+								container.setAttribute('class','col-12');
+								container.innerHTML = "<img src='"+reader.result+"' class='mt-3' />";
+								container.innerHTML+= "<input type='hidden' class='hidden' name='banner' id='banner' value='"+reader.result+"' />";
+								e.parentElement.append(container);
+							}
+						};
+						return true;
+					} else{ e.value='';
+					  Swal.alertError('Error','Imagem e maior do que '+max+'MB !');
+					}
+				} else{ e.value='';
+					Swal.alertError('Error', 'Formato de arquivo não permitido.');
+				}
+			}
+		}
 		static preparaFiles(f){
 		  if(f.files.length>0){
 			let file = f.files[0], id = f.name+'FileStatus', old = f.parentElement.querySelector('#'+id);
@@ -177,6 +205,34 @@
 					});
 				} else Swal.alertError('Error', 'Os campos de Ordenação não podem ter valores repetidos.');
 			}
+		}
+		static novoBanner(e){
+			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
+			if(Object.keys(o).length>0){
+				Controller.prepare(form);
+				return fetch(`./../assets/classes/Controller.php?a=novoBanner&token=${token}`,{
+					method: 'POST', headers: {
+					  'Accept': 'application/json'
+					},
+					body: Utils.Obj2FD(o)
+				})
+				.then(response => {
+					Controller.reset();
+					if(!response.ok){
+					   throw new Error('Error '+response.status+': '+response.statusText);
+					}
+					return response.json();
+				})
+				.then(rs => {
+					if(rs.rs!=-1){
+						if(rs.rs!=1){
+							Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
+						} else{
+							Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{ window.location.reload(); });
+						}
+					}
+				});
+			} else{ Swal.alertError('Error', 'As senhas devem ser iguais.'); }
 		}
 	}
 </SCRIPT>

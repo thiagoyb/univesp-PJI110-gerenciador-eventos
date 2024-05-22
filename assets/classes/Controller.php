@@ -5,7 +5,7 @@
 	if(!class_exists('Sql')) require 'Sql.php';
 
 class Controller{
-	static function obterSecoes($id=null, $publicar=false, $slug=null){
+	static function obterMenus($id=null, $publicar=false, $slug=null){
 		$Sql = new Sql();
 
 		$whereAdd = $publicar ? " AND publicar = 1" : "";
@@ -139,15 +139,15 @@ class Controller{
 		}
 		return $Banners;
 	}
-	static function novoBanner($idUser, $PUT){
+	static function novoBanner($PUT, $idUser){
 		$Sql = new Sql();
 		$Banner=array();
 		$rs = false;
 		$maxSize = isset($PUT['max']) ? $PUT['max'] : 5;
 
 		if($idUser>0){
-			///$Banner['fkUser'] = $idUser;
-			$Banner['ordem'] = isset($PUT['ordem']) ? Utils::soNumeros($PUT['ordem']) : null;
+			$Banner['fkUser'] = $idUser;
+			//$Banner['ordem'] = isset($PUT['ordem']) ? Utils::soNumeros($PUT['ordem']) : null;
 			$Banner['titulo'] = isset($PUT['titulo'])&&$PUT['titulo']!='' ? $PUT['titulo'] : 'NULL';
 			$Banner['largura'] = isset($PUT['largura']) ? Utils::soNumeros($PUT['largura']) : 'NULL';
 			$Banner['altura'] = isset($PUT['altura']) ? Utils::soNumeros($PUT['altura']) : 'NULL';
@@ -160,11 +160,11 @@ class Controller{
 			if($Banner['target']!=null && $BannerFile!=null){
 				$imagemBase64 = str_replace(' ', '+', array_reverse(explode(';base64,',$BannerFile))[0]);
 
-				$path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'banner'.DIRECTORY_SEPARATOR;
-				$titleNome = Utils::scape(Utils::clearInvalidChars(str_replace('NULL','',str_replace(' ','-',$Banner['titulo']))));
-				$nomeFile = str_replace('--','--','banner-'.$titleNome.'-'.uniqid('iams').'.jpg');
+				$PATH = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'banner'.DIRECTORY_SEPARATOR;
+				$titleNome = Utils::scape(Utils::clearChars(str_replace('NULL','',str_replace(' ','-',$Banner['titulo']))));
+				$nomeFile = str_replace('--','--','banner-'.$titleNome.'-'.uniqid('siga').'.jpg');
 
-				if(file_put_contents($path.$nomeFile, base64_decode($imagemBase64))){
+				if(file_put_contents($PATH.$nomeFile, base64_decode($imagemBase64))){
 					$Banner['banner'] = $nomeFile;
 
 					$rs = $Sql->newInstance('ge_banner', $Banner);
@@ -334,6 +334,9 @@ switch($_SERVER['REQUEST_METHOD']){
 				switch($params['a']){
 					case 'updateMenu':
 						$rs = $u->getPerfil()=='TI' ? Controller::updateMenus(Utils::receiveAjaxData('POST')) : "Sem Permissão para essa função !";
+						break;
+					case 'novoBanner':
+						$rs = Controller::novoBanner(Utils::receiveAjaxData('POST'), $u->getId());
 						break;
 				}
 

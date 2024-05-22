@@ -14,7 +14,7 @@ $user = User::auth(__FILE__);
  <HEAD>
 	<META http-equiv="X-UA-Compatible" content="IE=edge" />
     <META http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<link rel="shortcut icon" href="./../assets/img/orquidea.png"/>
 	<title>Administração</title>
 <?php
