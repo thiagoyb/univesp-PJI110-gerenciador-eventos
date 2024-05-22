@@ -90,11 +90,10 @@ $idForm = uniqid('Eventos');
 						$Evento[$s] = isset($Evento[$s]) && $Evento[$s]!=NULL ? $Evento[$s]: '';
 					}
 					$Evento['publicar'] = $acao=='EDIT' ? $Evento['publicar']: 1;
-					$idEvento = $Evento['codEvento']; ?>
+					$idEvento = isset($Evento['codEvento'])?$Evento['codEvento']:''; ?>
 
 					<div class="font-weight-bold font-small text-left">
 						<span class="mr-3" style="font-size:14px"><?= $id>0 ? 'Evento '.$id : ''; ?></span>
-						<input type="hidden" name="id" value="<?= $idEvento; ?>" />
 						<div class="switchContainer"><?php
 							$valorBol =$Evento['publicar']==1 ? 'on' : 'off';
 							$checado = $valorBol=='on' ? ' checked' : '';
@@ -106,6 +105,8 @@ $idForm = uniqid('Eventos');
 					<div class="row">
 					<?php
 						if($Evento['data_cadastro']!=''){ ?>
+							<input type="hidden" name="id" value="<?= $idEvento; ?>" />
+
 							<div class="form-group col-5 col-lg-5">
 								<label class="font-weight-bold d-block" id="data_upload">Data de Cadastro:</label>
 								<div class="form-control fakeInput" style="font-size: 17px;"><?= date('d/m/Y H:i:s', strtotime($Evento['data_cadastro'])); ?></div>
@@ -149,6 +150,7 @@ $idForm = uniqid('Eventos');
 							<div class="form-group col-11 col-lg-11">
 								<label class="font-weight-bold d-block" for="banner">Banner:</label>
 								<select class="form-control" name="banner" id="banner">
+									<option value=""></option>
 								<?php
 									foreach($Banners as $key => $Banner){
 										$checado = '';
@@ -172,7 +174,7 @@ $idForm = uniqid('Eventos');
 							<?php  } ?>
 							<?php
 								  if($acao=='NEW'){ ?>
-									<button class="btn btn-danger ml-1" name="submit" onclick="Controller.novoEvento(this)">Cadastrar</button>
+									<a target="_self" class="btn btn-danger text-white ml-1" name="submit" onclick="Controller.novoEvento(this)">Cadastrar</a>
 							<?php  } ?>
 								</div>
 							</div>

@@ -141,6 +141,34 @@ class Controller{
 
 		return $Eventos;
 	}
+	static function novoEvento($PUT, $idUser){
+		$Sql = new Sql();
+		$Evento=array();
+		$rs = false;
+
+		if($idUser>0){
+			$Evento['fkUser'] = $idUser;
+			$Evento['fkBanner'] = isset($PUT['banner']) ? Utils::soNumeros($PUT['banner']) : null;
+			$Evento['titulo'] = isset($PUT['titulo'])&&$PUT['titulo']!='' ? $PUT['titulo'] : 'NULL';
+			$Evento['data_inicial'] = isset($PUT['data_inicial']) ? trim($PUT['data_inicial']) : null;
+			$Evento['data_final'] = isset($PUT['data_final']) ? trim($PUT['data_final']) : $Evento['data_inicial'];
+			$Evento['endereco'] = isset($PUT['endereco'])&&$PUT['endereco']!='' ? Utils::clearChars($PUT['endereco']) : null;
+			$Evento['hora'] = isset($PUT['hora']) ? trim($PUT['hora']) : null;
+			$Evento['valor'] = isset($PUT['valor']) ? Utils::toFloat($PUT['valor']) : null;
+			$Evento['descricao'] = isset($PUT['descricao'])&&$PUT['descricao']!='' ? addslashes($PUT['descricao']) : null;
+			$Evento['publicar'] = isset($PUT['publicar']) ? Utils::evalVar($PUT['publicar']) : true;
+
+			if($Evento['titulo']!=null && $Evento['data_inicial']!=null && $Evento['endereco']!=null && $Evento['hora']!=null){
+				$rs = $Sql->newInstance('ge_eventos', $Evento);
+
+				return $rs>0 ? intval($rs) : "Erro ao salvar evento.";
+			}
+			else{ return "Campos obrigatórios necessários."; }
+		}
+		else{ return "Usuario não identificado"; }
+
+		return $rs===true ? $rs : 'Erro ao salvar os dados.';
+	}
 
 	static function obterBanners($id=null, $idUser=null, $publicar=null){
 		$Sql = new Sql();
@@ -162,7 +190,6 @@ class Controller{
 		$Sql = new Sql();
 		$Banner=array();
 		$rs = false;
-		$maxSize = isset($PUT['max']) ? $PUT['max'] : 5;
 
 		if($idUser>0){
 			$Banner['fkUser'] = $idUser;
@@ -181,7 +208,7 @@ class Controller{
 
 				$PATH = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'banner'.DIRECTORY_SEPARATOR;
 				$titleNome = Utils::scape(Utils::clearChars(str_replace('NULL','',str_replace(' ','-',$Banner['titulo']))));
-				$nomeFile = str_replace('--','--','banner-'.$titleNome.'-'.uniqid('siga').'.jpg');
+				$nomeFile = str_replace('--','-','banner-'.$titleNome.'-'.uniqid('siga').'.jpg');
 
 				if(file_put_contents($PATH.$nomeFile, base64_decode($imagemBase64))){
 					$Banner['banner'] = $nomeFile;
@@ -205,17 +232,14 @@ class Controller{
 
 		if($idUser>0){
 		  if($idBanner>0){
-			///$Banner['fkUser'] = $idUser;
-			$Banner['ordem'] = isset($PUT['ordem']) ? Utils::soNumeros($PUT['ordem']) : null;
 			$Banner['titulo'] = isset($PUT['titulo'])&&$PUT['titulo']!='' ? $PUT['titulo'] : 'NULL';
-			$Banner['largura'] = isset($PUT['largura'])&&$PUT['largura']!='' ? Utils::soNumeros($PUT['largura']) : 'NULL';
-			$Banner['altura'] = isset($PUT['altura'])&&$PUT['altura']!='' ? Utils::soNumeros($PUT['altura']) : 'NULL';
+			$Banner['largura'] = isset($PUT['largura']) ? Utils::soNumeros($PUT['largura']) : 'NULL';
+			$Banner['altura'] = isset($PUT['altura']) ? Utils::soNumeros($PUT['altura']) : 'NULL';
 			$Banner['target'] = isset($PUT['destino'])&&$PUT['destino']!='' ? trim($PUT['destino']) : null;
 			$Banner['url'] = isset($PUT['url'])&&$PUT['url']!='' ? $PUT['url'] : '#';
 			$Banner['publicar'] = isset($PUT['publicar']) ? Utils::evalVar($PUT['publicar']) : true;
-			//$BannerFile = isset($PUT['banner'])&&$PUT['banner']!='' ? $PUT['banner'] : null;
 
-			if($Banner['ordem']!=null && $Banner['target']!=null){
+			if($Banner['titulo']!=null){
 				$rs = $Sql->updateInstance('ge_banner',array('codBanner'=>$idBanner), $Banner);
 
 				return $rs>0 ? intval($idBanner) : "Erro ao salvar banner.";
@@ -236,10 +260,10 @@ class Controller{
 
 		if($idUser>0){
 		  if($idBanner>0 && $nomeFile!=null){
-			$path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'banner'.DIRECTORY_SEPARATOR;
+			$PATH = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'banner'.DIRECTORY_SEPARATOR;
 
-			if(file_exists($path.$nomeFile)){
-				unlink($path.$nomeFile);
+			if(file_exists($PATH.$nomeFile)){
+				unlink($PATH.$nomeFile);
 			}
 
 			$rs = $Sql->deleteInstance('ge_banner', array('codBanner'=>$idBanner));
@@ -356,6 +380,9 @@ switch($_SERVER['REQUEST_METHOD']){
 						break;
 					case 'novoBanner':
 						$rs = Controller::novoBanner(Utils::receiveAjaxData('POST'), $u->getId());
+						break;
+					case 'novoEvento':
+						$rs = Controller::novoEvento(Utils::receiveAjaxData('POST'), $u->getId());
 						break;
 				}
 

@@ -86,11 +86,10 @@ $idForm = uniqid('Banners');
 						$Banner[$s] = isset($Banner[$s]) && $Banner[$s]!=NULL ? $Banner[$s]: '';
 					}
 					$Banner['publicar'] = $acao=='EDIT' ? $Banner['publicar']: 1;
-					$idBanner = $Banner['codBanner']; ?>
+					$idBanner = isset($Banner['codBanner']) ? $Banner['codBanner'] : ''; ?>
 
 					<div class="font-weight-bold font-small text-left">
 						<span class="mr-3" style="font-size:14px"><?= $id>0 ? 'Banner '.$id : ''; ?></span>
-						<input type="hidden" name="id" value="<?= $idBanner; ?>" />
 						<div class="switchContainer"><?php
 							$valorBol =$Banner['publicar']==1 ? 'on' : 'off';
 							$checado = $valorBol=='on' ? ' checked' : '';
@@ -102,6 +101,8 @@ $idForm = uniqid('Banners');
 					<div class="row">
 					<?php
 						if($Banner['data_upload']!=''){ ?>
+							<input type="hidden" name="id" value="<?= $idBanner; ?>" />
+
 							<div class="form-group col-5 col-lg-5">
 								<label class="font-weight-bold d-block" id="data_upload">Data de Cadastro:</label>
 								<div class="form-control fakeInput" style="font-size: 17px;"><?= date('d/m/Y H:i:s', strtotime($Banner['data_upload'])); ?></div>

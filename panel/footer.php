@@ -232,7 +232,38 @@
 						}
 					}
 				});
-			} else{ Swal.alertError('Error', 'As senhas devem ser iguais.'); }
+			}
+		}
+		static novoEvento(e){
+			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
+			if(Object.keys(o).length>0){
+				o.descricao = tinymce.activeEditor.getContent({format:'raw'});
+				if(Utils.stripTags(o.descricao).length>0){
+					Controller.prepare(form);
+					return fetch(`./../assets/classes/Controller.php?a=novoEvento&token=${token}`,{
+						method: 'POST', headers: {
+						  'Accept': 'application/json'
+						},
+						body: Utils.Obj2FD(o)
+					})
+					.then(response => {
+						Controller.reset();
+						if(!response.ok){
+						   throw new Error('Error '+response.status+': '+response.statusText);
+						}
+						return response.json();
+					})
+					.then(rs => {
+						if(rs.rs!=-1){
+							if(rs.rs!=1){
+								Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
+							} else{
+								Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{ window.location.reload(); });
+							}
+						}
+					});
+				} else Swal.alertError('Error', 'Preencha o campo descrição: ');
+			}
 		}
 	}
 </SCRIPT>
