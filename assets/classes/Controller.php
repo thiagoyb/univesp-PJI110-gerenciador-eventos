@@ -126,17 +126,20 @@ class Controller{
 		return $rs===true ? $rs : 'Erro ao salvar os dados.';
 	}
 
-	static function obterBanners($id=null, $publicar=false){
+	static function obterBanners($id=null, $idUser=null, $publicar=null){
 		$Sql = new Sql();
 
-		$whereAdd = $publicar ? " AND publicar = 1" : "";
+		$whereAdd = $publicar!=null ? ( $publicar===true ? " AND publicar = 1"  : " AND publicar = 0" ) : '';
 		$whereAdd .= $id!=null && $id>0 ? " AND codBanner = {$id}" : "";
-		$querySql = "SELECT * FROM ge_banner L WHERE codBanner>0 {$whereAdd} ORDER BY ordem ASC, data_upload DESC;";
+		$querySql = "SELECT * FROM ge_banner L WHERE fkUser = {$idUser} {$whereAdd} ORDER BY ordem ASC, data_upload DESC;";
 
 		$Banners = array();
-		foreach(Utils::array_get($Sql->select($querySql)) as $data){
-			$Banners[] = $data;
+		if($idUser!=null && $idUser>0){
+			foreach(Utils::array_get($Sql->select($querySql)) as $data){
+				$Banners[] = $data;
+			}
 		}
+
 		return $Banners;
 	}
 	static function novoBanner($PUT, $idUser){

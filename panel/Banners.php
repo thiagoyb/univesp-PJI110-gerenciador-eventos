@@ -4,12 +4,17 @@ if(basename($_SERVER['PHP_SELF'])=='Banners.php'){
 	exit;
 }
 
+if(empty($user)){
+	echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+	exit;
+}
+
 $id = isset($_GET['id']) && $_GET['id']!='' && $_GET['id']>0 ?$_GET['id'] : null;
 
 $acao = isset($_GET['acao']) && $_GET['acao']!='' ? $_GET['acao'] : null;
 $acao = $acao=='novoBanner' ? 'NEW' : ($id!=null && $id>0 ? 'EDIT' : 'LIST');
 
-$Banners = $acao!='NEW' ? Controller::obterBanners($id) : array();
+$Banners = $acao!='NEW' ? Controller::obterBanners($id, $user->getId()) : array();
 
 $idForm = uniqid('Banners');
 ?>
@@ -30,7 +35,7 @@ $idForm = uniqid('Banners');
 				<?php
 				if($acao=='LIST'){ ?>
 					<div class="col-12 text-right">
-						<a target="_self" href="index.php?p=Banners&acao=novoBanner" class="btn btn-danger font-size-small mb-2"><i class="fas fa-plus mr-3"></i>Cadastrar</a>
+						<a target="_self" href="index.php?p=Banners&acao=novoBanner" class="btn btn-danger font-size-small mb-2"><i class="fas fa-plus mr-2"></i>Cadastrar</a>
 					</div>
 
 					<TABLE border="0" align="center" class="table_banners rs mt-3 col-12 collapse show" cellpadding="5" style="display:table;">
@@ -56,7 +61,7 @@ $idForm = uniqid('Banners');
 							<TD class="text-left"><?= isset($legenda[$Banner['target']]) ? $legenda[$Banner['target']] : ''; ?></TD>
 							<TD class="text-left"><?= date('d/m/Y H:i', strtotime($Banner['data_upload'])); ?></TD>
 							<TD class="text-center">
-								<A target="_blank" class="btn btn-primary btn-sm" href="./../assets/uploads/banner/<?= $Banner['banner']; ?>" title="Acessar banner" style="padding: 6px;"><i class="fas fa-eye mr-2"></i></A>
+								<!--<A target="_blank" class="btn btn-primary btn-sm" href="./../assets/uploads/banner/<?= $Banner['banner']; ?>" title="Acessar banner" style="padding: 6px;"><i class="fas fa-eye mr-2"></i></A>-->
 								<A href="index.php?p=Banners&id=<?= $idBanner; ?>" class="btn btn-primary btn-sm font-size-small ml-1" title="Editar..."><span class="material-symbols-outlined">edit</span></a>
 							</TD>
 						</TR>
