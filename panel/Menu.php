@@ -48,7 +48,7 @@ LI .fakeInput, LI .form-control{
 			<div class="card-subtitle">
 				<P class="title"></P>
 			</div>
-			<form name="form_<?= $idForm;?>" action="" enctype="multipart/form-data" method="post">
+			<form name="form_menus" onsubmit="return false" enctype="multipart/form-data" method="post">
 			<?php
 				if(empty($Menus)){ ?>
 					<div class="card-subtitle mt-1">

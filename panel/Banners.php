@@ -31,7 +31,7 @@ $idForm = uniqid('Banners');
 
 		<div class="offset-md-0 col-12 col-md-12 col-lg-12">
 			<div class="card-body">
-				<form name="form_<?= $idForm;?>" action="" enctype="multipart/form-data" method="post">
+				<form name="form_banners" onsubmit="return false" enctype="multipart/form-data" method="post">
 				<?php
 				if($acao=='LIST'){ ?>
 					<div class="col-12 text-right">
@@ -55,7 +55,7 @@ $idForm = uniqid('Banners');
 							?>
 						<TR>
 							<TD class="negrito text-center"><span class="id"><?= $idBanner; ?></span></TD>
-							<TD class="text-left"><?= nl2br($Banner['titulo']); ?></TD>
+							<TD class="text-left"><?= nl2br($Banner['nome']); ?></TD>
 							<TD class="text-left"><?= $Banner['banner']; ?></TD>
 							<TD class="text-left"><?= ($Banner['largura']!=''?$Banner['largura']:'auto').' x '.($Banner['altura']!=''?$Banner['altura']:'auto'); ?></TD>
 							<TD class="text-left"><?= isset($legenda[$Banner['target']]) ? $legenda[$Banner['target']] : ''; ?></TD>
@@ -82,7 +82,7 @@ $idForm = uniqid('Banners');
 						echo '<meta http-equiv="refresh" content="1; url=index.php?p=Banners" />';
 						exit;
 					}
-					foreach(explode(',','codBanner,titulo,banner,largura,altura,url,target,ordem,data_upload,data_update,publicar') as $s){
+					foreach(explode(',','codBanner,nome,banner,largura,altura,url,target,data_upload,data_update,publicar') as $s){
 						$Banner[$s] = isset($Banner[$s]) && $Banner[$s]!=NULL ? $Banner[$s]: '';
 					}
 					$Banner['publicar'] = $acao=='EDIT' ? $Banner['publicar']: 1;
@@ -114,8 +114,8 @@ $idForm = uniqid('Banners');
 						<?php
 						}  ?>
 							<div class="form-group col-11 col-lg-11">
-								<label class="font-weight-bold optional" for="titulo">Nome do Banner:</label>
-								<input class="form-control typeAlpha" type="text" name="titulo" id="titulo"  maxlength="100" value="<?= $Banner['titulo']; ?>" placeholder="Ex: logotipo do site">
+								<label class="font-weight-bold required" for="titulo">Nome do Banner:</label>
+								<input class="form-control typeAlpha" required type="text" name="titulo" id="titulo"  maxlength="100" value="<?= $Banner['nome']; ?>" placeholder="Ex: logotipo do site">
 							</div>
 							<div class="form-group col-3 col-lg-3">
 								<label class="font-weight-bold optional" for="largura">Largura:</label>
@@ -168,12 +168,12 @@ $idForm = uniqid('Banners');
 								</div>
 								<div class="col-8 text-right">
 								<?php
-								  if($acao=='EDIT'){ ?>
-									<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.updateBanner(this, <?= $id; ?>);">Atualizar</button>
-							<?php  } ?>
-							<?php
-								  if($acao=='NEW'){ ?>
-									<button class="btn btn-danger ml-1" name="submit" onclick="Controller.novoBanner(this)">Cadastrar</button>
+								if($acao=='EDIT'){ ?>
+									<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.saveBanner(this);">Atualizar</button>
+								<?php
+								}
+								if($acao=='NEW'){ ?>
+									<button class="btn btn-danger ml-1" type="button" name="submit" onclick="Controller.saveBanner(this)">Cadastrar</button>
 							<?php  } ?>
 								</div>
 							</div>

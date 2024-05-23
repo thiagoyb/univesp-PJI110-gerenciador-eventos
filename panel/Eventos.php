@@ -33,7 +33,7 @@ $idForm = uniqid('Eventos');
 
 		<div class="offset-md-0 col-12 col-md-12 col-lg-12">
 			<div class="card-body">
-				<form name="form_<?= $idForm;?>" action="" enctype="multipart/form-data" method="post">
+				<form name="form_eventos" onsubmit="return false" enctype="multipart/form-data" method="post">
 				<?php
 				if($acao=='LIST'){ ?>
 					<div class="col-12 text-right">
@@ -85,11 +85,12 @@ $idForm = uniqid('Eventos');
 						echo '<div class="alert col-6 alert-warning text-center" style="margin:auto">Evento '.$id.' não encontrada.</div>';
 						echo '<meta http-equiv="refresh" content="1; url=index.php?p=Eventos" />';
 						exit;
-					}//echo implode(',',array_keys($Evento));exit;
-					foreach(explode(',','codEvento,titulo,descricao,data_inicial,data_final,hora,valor,fkUser,fkBanner,endereco,data_cadastro,data_update,publicar') as $s){
+					}
+					foreach(explode(',','codEvento,titulo,descricao,data_inicial,data_final,hora,valor,fkUser,fkBanner,nomeBanner,banner,endereco,data_cadastro,data_update,publicar') as $s){
 						$Evento[$s] = isset($Evento[$s]) && $Evento[$s]!=NULL ? $Evento[$s]: '';
 					}
 					$Evento['publicar'] = $acao=='EDIT' ? $Evento['publicar']: 1;
+					$fkBanner = $acao=='EDIT' ? (isset($Evento['codBanner'])?$Evento['codBanner']:' Não') : 0;
 					$idEvento = isset($Evento['codEvento'])?$Evento['codEvento']:''; ?>
 
 					<div class="font-weight-bold font-small text-left">
@@ -148,15 +149,23 @@ $idForm = uniqid('Eventos');
 								<textarea class="form-control" required name="descricao" id="descricao" maxlength="65000" oninput="Utils.maxLength(this);" placeholder=""><?= $Evento['descricao']; ?>&nbsp;</textarea>
 							</div>
 							<div class="form-group col-11 col-lg-11">
-								<label class="font-weight-bold d-block" for="banner">Banner:</label>
-								<select class="form-control" name="banner" id="banner">
-									<option value=""></option>
+								<label class="font-weight-bold d-block">Banner:</label>
 								<?php
-									foreach($Banners as $key => $Banner){
-										$checado = '';
-										echo "<option {$checado} value='{$Banner['codBanner']}'>{$Banner['titulo']}&nbsp;&nbsp;&nbsp;(Cod: {$Banner['codBanner']})</option>";
-									} ?>
-								</select>
+								if($fkBanner>0){ ?>
+								<div class="form-control fakeInput" style="font-size: 17px;">
+									<img src="./../assets/uploads/banner/<?= $Evento['banner']; ?>" id="banner" title="<?= $Evento['nomeBanner']; ?>" alt="<?= $Evento['banner']; ?>" class="imgToUpload mt-2" />
+								</div>
+								<?php
+								} else{ ?>
+									<select class="form-control" name="banner" id="banner">
+										<option value=""></option>
+									<?php
+										foreach($Banners as $key => $Banner){
+											echo "<option value='{$Banner['codBanner']}'>{$Banner['nome']}&nbsp;&nbsp;&nbsp;(Cod: {$Banner['codBanner']})</option>";
+										} ?>
+									</select>
+								<?php
+								} ?>
 							</div>
 					</div>
 				<?php
@@ -170,11 +179,11 @@ $idForm = uniqid('Eventos');
 								<div class="col-8 text-right">
 								<?php
 								  if($acao=='EDIT'){ ?>
-									<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.updateEvento(this, <?= $id; ?>);">Atualizar</button>
+									<button class="btn btn-success mr-1" type="button" name="submit" onclick="Controller.saveEvento(this);">Atualizar</button>
 							<?php  } ?>
 							<?php
 								  if($acao=='NEW'){ ?>
-									<a target="_self" class="btn btn-danger text-white ml-1" name="submit" onclick="Controller.novoEvento(this)">Cadastrar</a>
+									<button class="btn btn-danger text-white ml-1" type="button"  name="submit" onclick="Controller.saveEvento(this)">Cadastrar</button>
 							<?php  } ?>
 								</div>
 							</div>

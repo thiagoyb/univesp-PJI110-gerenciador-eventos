@@ -145,6 +145,7 @@
 		}
 
 		static alteraSenha(e){
+			event.preventDefault();
 			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
 			if(Object.keys(o).length>0 && o.password1 == o.password2){
 				Controller.prepare(form);
@@ -173,6 +174,7 @@
 			} else{ Swal.alertError('Error', 'As senhas devem ser iguais.'); }
 		}
 		static updateMenu(e){
+			event.preventDefault();
 			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), orders=[], token = Controller.getToken();
 			Array.from(form.querySelectorAll('[name*=ordem]:not([disabled])')).forEach(i=>{ orders.push(i.value); });
 			if(Object.keys(o).length>0){
@@ -206,11 +208,12 @@
 				} else Swal.alertError('Error', 'Os campos de Ordenação não podem ter valores repetidos.');
 			}
 		}
-		static novoBanner(e){
+		static saveBanner(e){
+			event.preventDefault();
 			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
 			if(Object.keys(o).length>0){
 				Controller.prepare(form);
-				return fetch(`./../assets/classes/Controller.php?a=novoBanner&token=${token}`,{
+				return fetch(`./../assets/classes/Controller.php?a=saveBanner&token=${token}`,{
 					method: 'POST', headers: {
 					  'Accept': 'application/json'
 					},
@@ -234,13 +237,14 @@
 				});
 			}
 		}
-		static novoEvento(e){
+		static saveEvento(e){
+			event.preventDefault();
 			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
 			if(Object.keys(o).length>0){
 				o.descricao = tinymce.activeEditor.getContent({format:'raw'});
 				if(Utils.stripTags(o.descricao).length>0){
 					Controller.prepare(form);
-					return fetch(`./../assets/classes/Controller.php?a=novoEvento&token=${token}`,{
+					return fetch(`./../assets/classes/Controller.php?a=saveEvento&token=${token}`,{
 						method: 'POST', headers: {
 						  'Accept': 'application/json'
 						},
@@ -263,6 +267,38 @@
 						}
 					});
 				} else Swal.alertError('Error', 'Preencha o campo descrição: ');
+			}
+		}
+		static saveUsuario(e){
+			event.preventDefault();
+			let form = e.closest('form') ? e.closest('form') : document, o = Controller.receiveForm(form), token = Controller.getToken();
+			if(Object.keys(o).length>0){
+				if(Utils.isCPF(o.login)||Utils.isCNPJ(o.login)){
+					Controller.prepare(form);
+					return fetch(`./../assets/classes/Controller.php?a=saveUsuario&token=${token}`,{
+						method: 'POST', headers: {
+						  'Accept': 'application/json'
+						},
+						body: Utils.Obj2FD(o)
+					})
+					.then(response => {
+						Controller.reset();
+						if(!response.ok){
+						   throw new Error('Error '+response.status+': '+response.statusText);
+						}
+						return response.json();
+					})
+					.then(rs => {
+						if(rs.rs!=-1){
+							if(rs.rs!=1){
+								Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
+							} else{
+								Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{ window.location.reload(); });
+							}
+						}
+					});
+				}
+				else Swal.alertError('Error', 'CPF ou CNPJ invalido !: ');
 			}
 		}
 	}

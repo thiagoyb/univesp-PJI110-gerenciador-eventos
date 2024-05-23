@@ -41,7 +41,7 @@ $idForm = uniqid('usuarios');
 			<div class="card-subtitle">
 				<P class="title"></P>
 			</div>
-			<form name="form_<?= $idForm;?>" action="" enctype="multipart/form-data" method="post">
+			<form name="form_usuarios" onsubmit="return false" enctype="multipart/form-data" method="post">
 			<?php
 				if($acao=='LIST'){ ?>
 					<div class="col-12 text-right">
@@ -54,7 +54,7 @@ $idForm = uniqid('usuarios');
 						<TH>Data de Cadastro</TH>
 						<TH>Nome</TH>
 						<TH>Email</TH>
-						<TH>Nivel</TH>
+						<TH>Perfil</TH>
 						<TH class="text-center">Ações</TH>
 					</TR>
 			<?php	foreach($Usuarios as $Usuario){
@@ -107,18 +107,20 @@ $idForm = uniqid('usuarios');
 					$idUsuario = $Usuario['codUser'];	?>
 					<div class="font-weight-bold font-small text-left">
 						<span class="mr-3" style="font-size:14px"><?= $id>0 ? 'Usuario '.$id : ''; ?></span>
-						<input type="hidden" name="id" value="<?= $idUsuario; ?>" />
 						<div class="switchContainer"><?php
 							$valorBol =$Usuario['ativado']==1 ? 'on' : 'off';
 							$checado = $valorBol=='on' ? ' checked' : '';
 							?>
-							<input type="checkbox" id="ativado" name="ativado" value="<?= $valorBol;?>" <?= $checado;?> class="switcher" role="switcher" onchange="liberarAlteracao('<?= $idForm;?>')" />
+							<input type="checkbox" id="ativado" name="ativado" value="<?= $valorBol;?>" <?= $checado;?> class="switcher" role="switcher" />
 							<label class="switch" for="ativado" style="color:#777">Ativado</label>
 						</div>
 					</div>
 					<div class="row" style="min-height: 50vh;">
 					<?php
 					  if($Usuario['data_cadastro']!=''){ ?>
+						<input type="hidden" name="id" value="<?= $idUsuario; ?>" />
+						<input type="hidden" name="login" value="<?= $login; ?>" />
+
 						<div class="form-group col-6 col-lg-6">
 							<label class="font-weight-bold d-block">Data de Cadastro:</label>
 							<div class="form-control fakeInput" style="font-size: 17px;"><?= date('d/m/Y H:i:s', strtotime($Usuario['data_cadastro'])); ?></div>
@@ -131,11 +133,11 @@ $idForm = uniqid('usuarios');
 					  }  ?>
 						<div class="form-group col-6 col-lg-6">
 							<label class="font-weight-bold d-block required" for="nome">Nome:</label>
-							<input class="form-control typeAlphaNum" required type="text" maxlength="100" name="nome" id="nome" value="<?= $Usuario['nome']; ?>" oninput="Utils.maxLength(this)" placeholder="Nome" onchange="liberarAlteracao('<?= $idForm;?>')">
+							<input class="form-control typeAlphaNum" required type="text" maxlength="100" name="nome" id="nome" value="<?= $Usuario['nome']; ?>" oninput="Utils.maxLength(this)" placeholder="Nome" />
 						</div>
 						<div class="form-group col-6 col-lg-6">
 							<label class="font-weight-bold d-block required" for="email">Email:</label>
-							<input class="form-control" required type="email" maxlength="100" name="email" id="email" value="<?= $Usuario['email']; ?>" oninput="Utils.maxLength(this)" placeholder="user@mail.com" onchange="liberarAlteracao('<?= $idForm;?>')">
+							<input class="form-control" required type="email" maxlength="100" name="email" id="email" value="<?= $Usuario['email']; ?>" oninput="Utils.maxLength(this)" placeholder="user@mail.com" />
 						</div>
 					<?php
 						if($Usuario['data_cadastro']==''){ ?>
@@ -145,7 +147,7 @@ $idForm = uniqid('usuarios');
 							</div>
 							<div class="form-group col-6 col-lg-6">
 								<label class="required text-left negrito" for="senha">Senha:</label>
-								<input type="password" name="senha" id="senha" required class="form-control form-border text-left" autocomplete="current-password" onchange="liberarAlteracao('<?= $idForm;?>')" placeholder="*****">
+								<input type="password" name="senha" id="senha" required class="form-control form-border text-left" autocomplete="current-password" placeholder="*****" />
 							</div>
 						<?php
 						}  ?>
@@ -153,11 +155,11 @@ $idForm = uniqid('usuarios');
 					<?php
 						if($user->getPerfil()=='TI'){ ?>
 						<div class="form-group col-4 col-lg-4">
-							<label class="font-weight-bold d-block required" for="nivel">Perfil:</label>
+							<label class="font-weight-bold d-block required">Perfil:</label>
 							<div class="switchContainer"><?php
 								$valorBol =$Usuario['perfil']=='TI' ? 'on' : 'off';
 								$checado = $valorBol=='on' ? ' checked' : ''; ?>
-								<input type="checkbox" id="Administrador" name="Administrador" value="<?= $valorBol;?>" <?= $checado;?> class="switcher" role="switcher" onchange="liberarAlteracao('<?= $idForm;?>')" />
+								<input type="checkbox" id="Administrador" name="Administrador" value="<?= $valorBol;?>" <?= $checado;?> class="switcher" role="switcher" />
 								<label class="switch" for="Administrador" style="color:#777">Administrador</label>
 							</div>
 						</div>
@@ -176,11 +178,10 @@ $idForm = uniqid('usuarios');
 							<div class="col-8 text-right">
 							<?php
 							  if($acao=='EDIT'){ ?>
-								<button class="btn btn-success mr-1" name="submit" onclick="Controller.updateUsuario(this, <?= $id; ?>);">Atualizar</button>
-						<?php  } 
-
+								<button class="btn btn-success mr-1" name="submit" onclick="Controller.saveUsuario(this);">Atualizar</button>
+						<?php  }
 							  if($acao=='NEW'){ ?>
-								<button class="btn btn-danger ml-1" name="submit" onclick="Controller.novoUsuario(this)">Cadastrar</button>
+								<button class="btn btn-danger ml-1" name="submit" onclick="Controller.saveUsuario(this)">Cadastrar</button>
 						<?php  } ?>
 							</div>
 						</div>
