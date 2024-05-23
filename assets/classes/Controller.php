@@ -395,7 +395,6 @@ class Controller{
 	}
 
 }
-
 switch($_SERVER['REQUEST_METHOD']){
 	case 'POST':{
 		$arrResponse =  array('rs'=>false, 'msg'=>'');
@@ -404,7 +403,7 @@ switch($_SERVER['REQUEST_METHOD']){
 		if(isset($params['token']) && $params['token'] > time()){
 			$u = User::auth(__FILE__, true);
 			if(!empty($u)){
-				$rs = false;
+				$rs = false; 	$err = false;
 				$id=0;
 
 				switch($params['a']){
@@ -429,16 +428,18 @@ switch($_SERVER['REQUEST_METHOD']){
 
 						$rs = $isEdit ? Controller::updateUsuario(Utils::receiveAjaxData('POST'), $u) : Controller::novoUsuario(Utils::receiveAjaxData('POST'), $u);
 						break;
+					default:
+						$err = true;
 				}
 
 				$arrResponse['rs'] = $rs===true || $rs>0;
 				if($rs>0) $arrResponse['id'] = $rs;
-				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs']===true ? 'Salvo com Sucesso !' : 'Error: ');
+				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs']===true ? 'Salvo com Sucesso !' : 'Error: Controller');
 			}
 			else{ $arrResponse['rs'] = -1; }
-		}
 
-		echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
+			if(!$err) echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
+		}
 		break;
 	}
 }

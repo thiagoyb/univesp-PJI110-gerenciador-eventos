@@ -75,7 +75,7 @@ $idForm = uniqid('Eventos');
 					<?php
 					if(empty($Eventos)){ ?>
 						<div class="card-subtitle mt-1">
-							<P class="title text-center">Nenhum evento encontrado.</P>
+							<P class="title text-center">Nenhum evento encontrado de <?= USERNAME; ?>.</P>
 						</div><?php
 					}
 				}

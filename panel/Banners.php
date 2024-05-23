@@ -71,7 +71,7 @@ $idForm = uniqid('Banners');
 					<?php
 					if(empty($Banners)){ ?>
 						<div class="card-subtitle mt-1">
-							<P class="title text-center">Nenhum banner encontrado.</P>
+							<P class="title text-center">Nenhum banner encontrado de <?= USERNAME; ?>.</P>
 						</div><?php
 					}
 				}

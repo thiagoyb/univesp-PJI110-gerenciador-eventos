@@ -183,7 +183,6 @@
 				$this->perfil = $perfil;
 		}
 	}
-
 switch($_SERVER['REQUEST_METHOD']){
     case 'PUT':{}
 	case 'POST':{
@@ -193,21 +192,23 @@ switch($_SERVER['REQUEST_METHOD']){
 		if(isset($params['token']) && $params['token'] > time()){
 			$u = User::auth(__FILE__, true);
 			if(!empty($u)){
-				$rs = false;
+				$rs = false; 	$err = false;
 
 				switch($params['a']){
 					case 'alteraSenha':
 						$rs = $u->alterarSenha(Utils::receiveAjaxData('POST'), true);
 						break;
+					default:
+						$err = true;
 				}
 
 				$arrResponse['rs'] = is_bool($rs) && $rs===true;
-				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs'] ? 'Salvo com Sucesso !' : 'Error: ');
+				$arrResponse['msg'] = is_string($rs) ? $rs : ($arrResponse['rs'] ? 'Salvo com Sucesso !' : 'Error: User');
 			}
 			else{ $arrResponse['rs'] = -1; }
+			
+			if(!$err) echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
 		}
-
-		echo json_encode($arrResponse, JSON_NUMERIC_CHECK);
 		break;
 	}
 	default:{}
