@@ -750,3 +750,6 @@ b.logado, i.destacado {
 		margin-bottom: 0;
 		padding: 0px;
 	}
+	.events-results LI:hover div:last-child{
+		background-color:#ffcf67;
+	}

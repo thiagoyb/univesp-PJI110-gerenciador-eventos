@@ -133,7 +133,7 @@ class Controller{
 		$whereAdd .= $idUser!=null && $idUser>0 ? " AND E.fkUser = {$idUser}" : "";
 		$whereAdd .= $id!=null && $id>0 ? " AND codEvento = {$id}" : "";
 
-		$querySql = "SELECT E.*, B.codBanner, B.banner, B.nome as nomeBanner FROM ge_eventos E LEFT JOIN ge_banner B ON (E.fkBanner = B.codBanner)";
+		$querySql = "SELECT E.*, B.codBanner, B.banner, B.nome as nomeBanner, B.url FROM ge_eventos E LEFT JOIN ge_banner B ON (E.fkBanner = B.codBanner)";
 		$querySql.= "	WHERE codEvento>0 {$whereAdd} ORDER BY E.fkUser, E.data_cadastro DESC;";
 
 		$Eventos = array();
