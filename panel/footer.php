@@ -231,7 +231,7 @@
 						if(rs.rs!=1){
 							Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
 						} else{
-							Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{ window.location.reload(); });
+							setTimeout(()=>{window.location.assign('?p=Banners&id='+rs.id);}, 500);
 						}
 					}
 				});
@@ -262,7 +262,9 @@
 							if(rs.rs!=1){
 								Swal.alertError('Error', rs.msg!='' ? rs.msg : 'Error: ');
 							} else{
-								Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{ window.location.reload(); });
+								Swal.alertSuccess('Mensagem', rs.msg ? rs.msg : 'Salvo com sucesso !')?.then(()=>{
+									setTimeout(()=>{window.location.assign('?p=Eventos&id='+rs.id);}, 500);
+								});
 							}
 						}
 					});
