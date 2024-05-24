@@ -8,8 +8,11 @@
   <LINK rel="stylesheet" type="text/css" href="<?= URL_HOME; ?>assets/css/style.css"></LINK>
   <LINK rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"></LINK>
   <header class="navbar-expand-lg container-fluid">
+	<img class="logo abs" src="src/imagem/LogotipoSigaEventos2.jpg" height="120" alt="Logo Siga Eventos" style="z-index: 5;position: absolute;top: 15px;">
+
 	<div class="row">
 		<div class="col-lg-12 col-sm-12" align="center">
+
 			<button for="navToggle" class="btn col-sm-12 navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<strong class="collapsed">Menu</strong>
 			</button>

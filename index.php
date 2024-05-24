@@ -26,7 +26,7 @@ $user = User::auth(__FILE__, true);//permite Visitante
   <MAIN class="container-fluid">
 	<section class="content">
 <?php
-	$page = isset($_GET['p']) && $_GET['p']!='' && file_exists($_GET['p'].'.php') ? $_GET['p'].'.php' : null;
+	$page = isset($_GET['p']) && $_GET['p']!='' && file_exists($_GET['p'].'.php') ? $_GET['p'].'.php' : 'inicio.php';
 	if(file_exists($page)){ ?>
 	  <div class="row">
   <?php
