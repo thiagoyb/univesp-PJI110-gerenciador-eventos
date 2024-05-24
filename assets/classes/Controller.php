@@ -126,12 +126,14 @@ class Controller{
 		return $rs===true ? $rs : 'Erro ao salvar os dados.';
 	}
 
-	static function obterEventos($id=null, $idUser=null, $publicar=null){
+	static function obterEventos($id=null, $idUser=null, $publicar=null, $titulo=null, $data=null){
 		$Sql = new Sql();
 
 		$whereAdd = $publicar!=null ? ( $publicar===true ? " AND E.publicar = 1"  : " AND E.publicar = 0" ) : '';
-		$whereAdd .= $idUser!=null && $idUser>0 ? " AND E.fkUser = {$idUser}" : "";
-		$whereAdd .= $id!=null && $id>0 ? " AND codEvento = {$id}" : "";
+		$whereAdd .= $idUser!=null && $idUser>0 ? " AND E.fkUser = {$idUser}" : '';
+		$whereAdd .= $id!=null && $id>0 ? " AND codEvento = {$id}" : '';
+		$whereAdd .= $titulo!=null && $titulo!='' ? " AND E.titulo LIKE '%{$titulo}%'" : '';
+		$whereAdd .= $data!=null && $data!='' ? " AND E.data_inicial = '{$data}'" : '';
 
 		$querySql = "SELECT E.*, B.codBanner, B.banner, B.nome as nomeBanner, B.url FROM ge_eventos E LEFT JOIN ge_banner B ON (E.fkBanner = B.codBanner)";
 		$querySql.= "	WHERE codEvento>0 {$whereAdd} ORDER BY E.fkUser, E.data_cadastro DESC;";

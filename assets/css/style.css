@@ -753,3 +753,6 @@ b.logado, i.destacado {
 	.events-results LI:hover div:last-child{
 		background-color:#ffcf67;
 	}
+	.events-details LI.line{
+		border-bottom: 1px solid #00000033;
+	}
