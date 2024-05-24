@@ -10,7 +10,7 @@
 	</div>
 
   <div>
-	<UL>
+	<UL class="weekly-events">
 	<?php
 	foreach($Eventos as $Evento){
 		$codEvento = isset($Evento['codEvento']) ?$Evento['codEvento'] : 0;
