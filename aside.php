@@ -1,8 +1,5 @@
 <?php
-	$Eventos = array(
-		array('banner'=>'show-semna1.jpg', 'titulo'=>'Show das Meninas'),
-		array('banner'=>'show-semna2.jpg', 'titulo'=>'Show das Poderosas'),
-	);//Controller::obterEventos(null, null, true);
+	$Eventos = Controller::obterEventos(null, null, true);
 ?>
 <aside class="column side text-center">
 	<div class="card-header text-center">
